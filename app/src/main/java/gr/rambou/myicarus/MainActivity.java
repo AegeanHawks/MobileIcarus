@@ -57,17 +57,32 @@ public class MainActivity extends ActionBarActivity
                 .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
                 .commit();
     }
+    private void ChangeFragment(Fragment newFragment)
+    {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.container, newFragment);
+        transaction.addToBackStack(null);
+
+        // Commit the transaction
+        transaction.commit();
+    }
 
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
                 mTitle = getString(R.string.title_section1);
+                //ChangeFragment(argvar);
                 break;
             case 2:
                 mTitle = getString(R.string.title_section2);
+                //ChangeFragment(argvar);
                 break;
             case 3:
                 mTitle = getString(R.string.title_section3);
+                //ChangeFragment(argvar);
                 break;
         }
     }
