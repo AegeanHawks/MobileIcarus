@@ -1,0 +1,126 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="0px"
+    android:paddingRight="0px"
+    android:paddingTop="0px"
+    android:paddingBottom="0px"
+    android:background="@drawable/login_bg"
+    tools:context=".LoginActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:weightSum="1">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="171dp"
+            android:layout_weight="0.68">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/sun"
+                    android:src="@drawable/sun"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:scaleType="fitEnd" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <ImageView
+                    android:layout_width="170dp"
+                    android:layout_height="190dp"
+                    android:id="@+id/icarus"
+                    android:src="@drawable/icarus"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="171dp"
+            android:layout_weight="0.40">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Username"
+                android:hint="@string/Username"
+                android:gravity="center_horizontal"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="50dp"
+                android:layout_alignLeft="@+id/Password"
+                android:layout_alignStart="@+id/Password"
+                android:layout_alignRight="@+id/Password"
+                android:layout_alignEnd="@+id/Password"
+                android:textAlignment="center"
+                android:singleLine="true"
+                android:autoText="false"
+                android:textColor="#ffff444b" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/Password"
+                android:hint="@string/Password"
+                android:gravity="center_horizontal"
+                android:layout_below="@+id/Username"
+                android:layout_centerHorizontal="true"
+                android:singleLine="true"
+                android:textColor="#ffff525d" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Login"
+                android:id="@+id/button"
+                android:layout_below="@+id/Password"
+                android:layout_centerHorizontal="true"
+                android:nestedScrollingEnabled="false"
+                android:onClick="Login_Clicked" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/ErrorMsg"
+                android:visibility="invisible"
+                android:layout_below="@+id/button"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="111dp"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/waves"
+                android:src="@drawable/waves1"
+                android:scaleType="fitXY"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Username">Όνομα Χρήστη</string>
+    <string name="Password">Κωδικός</string>
+    <string name="Login">Σύνδεση</string>
+    <string name="Error_Login">Λάθος στοιχεία ή ο server είναι down!</string>
+</resources>
