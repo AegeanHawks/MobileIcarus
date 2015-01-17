@@ -4,7 +4,6 @@
         android:icon="@drawable/ic_launcher" android:theme="@style/AppTheme">
 
         <activity
-            android:label="@string/title_activity_login"
             android:name="gr.rambou.myicarus.LoginActivity" >
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
