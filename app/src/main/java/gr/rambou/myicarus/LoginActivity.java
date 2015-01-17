@@ -1,6 +1,7 @@
 package gr.rambou.myicarus;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -19,5 +20,11 @@ public class LoginActivity extends Activity {
         //i.putExtra("key", new nick());
         //startActivity(i);
         //this.finish();
+
+        //region Testing change activity
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        this.finish();
+        //endregion
     }
 }
