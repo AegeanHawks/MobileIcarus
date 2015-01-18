@@ -48,22 +48,5 @@ public class CustomNavigationAdapter extends ArrayAdapter<NavigationRowItem> {
         holder.imageView.setImageResource(rowItem.getImageId());
 
         return convertView;
-        /*LayoutInflater mInflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        ViewHolder holder;
-        if (convertView == null) {
-            holder = new ViewHolder();
-            convertView = mInflater.inflate(R.layout.navigation_row_item,
-                    null);
-            holder.imageView = (ImageView) convertView
-                    .findViewById(R.id.customimageView1);
-
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-
-        holder.imageView.setImageResource(rowItem.getImageId()
-        return convertView;*/
     }
 }

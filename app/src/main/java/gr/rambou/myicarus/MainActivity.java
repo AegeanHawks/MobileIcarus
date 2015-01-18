@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -53,8 +55,12 @@ public class MainActivity extends ActionBarActivity
                 .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
                 .commit();
     }
-    private void ChangeFragment(Fragment newFragment)
+    private void ChangeFragment(Fragment newFragment, Bundle data)
     {
+        if( data!=null ){
+            newFragment.setArguments(data);
+        }
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         // Replace whatever is in the fragment_container view with this fragment,
@@ -71,7 +77,10 @@ public class MainActivity extends ActionBarActivity
         switch (number) {
             case 1:
                 mTitle = getString(R.string.Grades);
-                //ChangeFragment(argvar);
+                ArrayList<Lesson> arraylist = myicarus.getAll_Lessons();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("arraylist", arraylist);
+                ChangeFragment(new Grades(), bundle);
                 break;
             case 2:
                 mTitle = getString(R.string.Request);
@@ -80,9 +89,10 @@ public class MainActivity extends ActionBarActivity
             case 3:
                 mTitle = getString(R.string.Course_Register);
                 //ChangeFragment(argvar);
+                break;
             case 4:
                 mTitle = getString(R.string.About);
-                ChangeFragment(new About());
+                ChangeFragment(new About(),null);
                 break;
             case 5:
                 mTitle = getString(R.string.Logout);

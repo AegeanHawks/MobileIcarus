@@ -15,7 +15,7 @@ public class Lesson implements Serializable{
 
     public static enum LessonStatus {
 
-        PASSED, FAILED, NOT_GIVEN
+        PASSED, FAILED, NOT_GIVEN, CANCELLED
     }
 
     public Lesson(String id, String title, double mark, String semester, Date statement, Date exam, LessonStatus status) {
@@ -36,7 +36,7 @@ public class Lesson implements Serializable{
         return Title;
     }
 
-    public String Get_Cemester() {
+    public String Get_Semester() {
         return Semester;
     }
 

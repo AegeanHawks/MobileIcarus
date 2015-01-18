@@ -4,12 +4,11 @@
     android:layout_height="match_parent"
     android:layout_gravity="start"
     android:choiceMode="singleChoice"
-    android:divider="@color/list_divider"
+    android:divider="@color/list_divider_grades"
     android:dividerHeight="1dp"
     android:listSelector="@drawable/list_selector"
     android:background="@color/list_grade"
-    tools:context="com.myicarus.aegeandevteam.activityandnav.Grades">
-
+    tools:context="gr.rambou.myicarus.Grades">
 
 
 </ListView>

@@ -275,6 +275,9 @@ public class Icarus implements Serializable {
             case "Αποτυχία":
                 Status = Lesson.LessonStatus.FAILED;
                 break;
+            case "Ακύρωση":
+                Status = Lesson.LessonStatus.CANCELLED;
+                break;
             default:
                 Status = Lesson.LessonStatus.NOT_GIVEN;
                 break;

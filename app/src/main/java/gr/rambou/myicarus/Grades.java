@@ -1,12 +1,20 @@
 package gr.rambou.myicarus;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -28,6 +36,7 @@ public class Grades extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    ArrayList<Lesson> studentLessons;
 
     /**
      * Use this factory method to create a new instance of
@@ -63,8 +72,25 @@ public class Grades extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_grades, container, false);
+
+        ArrayList<Lesson> lessons=(ArrayList<Lesson>) getArguments().getSerializable("arraylist");
+
+        //region Initialize ListView
+        ListView lessonsList = (ListView) inflater.inflate(
+                R.layout.fragment_grades, container, false);
+
+        //region Set ListView Adapter
+        lessonsList.setAdapter(new AdapterGrades(
+                getActivity().getApplicationContext(),
+                R.layout.grade_layout,
+                lessons
+        ));
+        //endregion
+
+        // Recycle the typed array
+
+        //lessonsList.setItemChecked(mCurrentSelectedPosition, true);
+        return lessonsList;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
