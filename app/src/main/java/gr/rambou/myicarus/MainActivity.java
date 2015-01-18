@@ -1,6 +1,7 @@
 package gr.rambou.myicarus;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -82,8 +83,12 @@ public class MainActivity extends ActionBarActivity
             case 4:
                 mTitle = getString(R.string.About);
                 ChangeFragment(new About());
+                break;
             case 5:
                 mTitle = getString(R.string.Logout);
+                Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(i);
+                this.finish();
                 break;
         }
     }
