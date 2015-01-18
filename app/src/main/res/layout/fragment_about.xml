@@ -15,10 +15,11 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_width="270dp"
+        android:maxLines="2"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Bousios Nikolaos                   (RambouCop)"
+        android:text="Bousios Nikolaos (RambouCop)"
         android:id="@+id/textView"
         android:fontFamily="sans-serif-light"
         android:textColor="#ff5e7fb1"
@@ -29,8 +30,9 @@
         android:gravity="center_horizontal" />
 
     <TextView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_width="270dp"
+        android:maxLines="2"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Chasiotis Konstantinos (Armageddonas)"
         android:id="@+id/textView2"
@@ -42,8 +44,9 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_width="270dp"
+        android:maxLines="2"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Kaonis Charis (Ph4ntom)"
         android:fontFamily="sans-serif-light"
