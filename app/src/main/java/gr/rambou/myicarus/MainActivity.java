@@ -81,6 +81,7 @@ public class MainActivity extends ActionBarActivity
                 //ChangeFragment(argvar);
             case 4:
                 mTitle = getString(R.string.About);
+                ChangeFragment(new About());
             case 5:
                 mTitle = getString(R.string.Logout);
                 break;
