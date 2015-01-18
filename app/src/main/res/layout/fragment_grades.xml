@@ -1,14 +1,21 @@
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="start"
-    android:choiceMode="singleChoice"
-    android:divider="@color/list_divider_grades"
-    android:dividerHeight="1dp"
-    android:listSelector="@drawable/list_selector"
-    android:background="@color/list_grade"
-    tools:context="gr.rambou.myicarus.Grades">
+    android:layout_height="match_parent">
 
+        <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:id="@+id/grades_listview"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:choiceMode="singleChoice"
+            android:divider="@color/list_divider_grades"
+            android:dividerHeight="1dp"
+            android:listSelector="@drawable/list_selector"
+            android:background="@color/list_grade"
+            tools:context="gr.rambou.myicarus.Grades">
+        </ListView>
 
-</ListView>
+</android.support.v4.widget.SwipeRefreshLayout>

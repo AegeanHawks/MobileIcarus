@@ -31,9 +31,14 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+    public Icarus getIcarus(){
+        return myicarus;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         myicarus = (Icarus) getIntent().getExtras().getSerializable("icarus");
 
@@ -80,6 +85,7 @@ public class MainActivity extends ActionBarActivity
                 ArrayList<Lesson> arraylist = myicarus.getAll_Lessons();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("arraylist", arraylist);
+                bundle.putSerializable("myicarus", myicarus);
                 ChangeFragment(new Grades(), bundle);
                 break;
             case 2:

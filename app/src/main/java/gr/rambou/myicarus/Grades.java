@@ -1,8 +1,12 @@
 package gr.rambou.myicarus;
 
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,39 +15,17 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 
-/**
- * A simple {@link android.app.Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Grades.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Grades#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class Grades extends Fragment {
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
+public class Grades extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private OnFragmentInteractionListener mListener;
+    private static int REFRESH_TIME_IN_SECONDS = 6;
+    private Icarus myicarus;
     ArrayList<Lesson> studentLessons;
+    SwipeRefreshLayout swipeRefreshLayout;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Grades.
-     */
-
-    public static Grades newInstance(String param1, String param2) {
+    public static Grades newInstance() {
         Grades fragment = new Grades();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,23 +35,76 @@ public class Grades extends Fragment {
     }
 
     @Override
+    public void onRefresh() {
+        Log.e(getClass().getSimpleName(), "refreshing...");
+
+        //thread που εκτελείται και σταματά σε κάποιον χρόνο σε περίπτωση που το refresh αποτύχει
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                stopSwipeRefresh();
+            }
+        }, REFRESH_TIME_IN_SECONDS * 1000);
+
+
+        try{
+            ArrayList<Lesson> arraylist = new ReloadGrades().execute().get();
+            ListView lessonsList = (ListView) swipeRefreshLayout.findViewById(R.id.grades_listview);
+            lessonsList.setAdapter(new AdapterGrades(
+                    getActivity().getApplicationContext(),
+                    R.layout.grade_layout,
+                    arraylist
+            ));
+        }catch (Exception e){
+            stopSwipeRefresh();
+        }
+
+    }
+
+    public class ReloadGrades extends AsyncTask<Void, Void, ArrayList<Lesson>> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected ArrayList<Lesson> doInBackground(Void... params) {
+            System.setProperty("jsse.enableSNIExtension", "false");
+            myicarus.LoadMarks(null);
+            ArrayList<Lesson> arraylist = myicarus.getAll_Lessons();
+
+            return arraylist;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Lesson> result) {
+            super.onPostExecute(result);
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    private void stopSwipeRefresh() {
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //φορτώνουμε τα μαθήματα
+        ArrayList<Lesson> lessons = (ArrayList<Lesson>) getArguments().getSerializable("arraylist");
+        myicarus = (Icarus) getArguments().getSerializable("myicarus");
 
-        ArrayList<Lesson> lessons=(ArrayList<Lesson>) getArguments().getSerializable("arraylist");
+        swipeRefreshLayout = (SwipeRefreshLayout) inflater.inflate(R.layout.fragment_grades, container, false);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         //region Initialize ListView
-        ListView lessonsList = (ListView) inflater.inflate(
-                R.layout.fragment_grades, container, false);
+        ListView lessonsList = (ListView) swipeRefreshLayout.findViewById(R.id.grades_listview);
 
         //region Set ListView Adapter
         lessonsList.setAdapter(new AdapterGrades(
@@ -79,10 +114,7 @@ public class Grades extends Fragment {
         ));
         //endregion
 
-        // Recycle the typed array
-
-        //lessonsList.setItemChecked(mCurrentSelectedPosition, true);
-        return lessonsList;
+        return swipeRefreshLayout;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -99,16 +131,6 @@ public class Grades extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
