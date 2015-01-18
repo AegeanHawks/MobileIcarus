@@ -45,7 +45,7 @@
 
     <TextView
         android:layout_height="wrap_content"
-        android:layout_width="270dp"
+        android:layout_width="200dp"
         android:maxLines="2"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Kaonis Charis (Ph4ntom)"
@@ -85,16 +85,18 @@
         android:layout_width="48dp"
         android:layout_height="wrap_content"
         android:id="@+id/imageView3"
-        android:layout_below="@+id/textView"
-        android:layout_toRightOf="@+id/textView3"
-        android:layout_alignBottom="@+id/textView2" />
+        android:layout_alignTop="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_toRightOf="@+id/textView2" />
 
     <ImageView
         android:src="@drawable/ic_charis"
-        android:layout_width="wrap_content"
+        android:layout_width="48dp"
         android:layout_height="wrap_content"
         android:id="@+id/imageView4"
         android:layout_below="@+id/textView2"
         android:layout_toLeftOf="@+id/textView3"
-        android:layout_toStartOf="@+id/textView3" />
+        android:layout_toStartOf="@+id/textView3"
+        android:layout_alignBottom="@+id/textView3" />
 </RelativeLayout>
