@@ -84,7 +84,7 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 2:
                 mTitle = getString(R.string.Request);
-                //ChangeFragment(argvar);
+                ChangeFragment(new request(),null);
                 break;
             case 3:
                 mTitle = getString(R.string.Course_Register);

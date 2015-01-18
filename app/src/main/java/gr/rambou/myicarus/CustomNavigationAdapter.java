@@ -1,7 +1,6 @@
 package gr.rambou.myicarus;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +10,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-/**
- * Created by darknight on 1/17/2015.
- */
 public class CustomNavigationAdapter extends ArrayAdapter<NavigationRowItem> {
     Context context;
 

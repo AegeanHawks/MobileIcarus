@@ -18,6 +18,23 @@
         <item>@drawable/ic_about</item>
         <item>@drawable/ic_logout</item>
     </array>
+    <string name="Another_Parer">Τι άλλο?</string>
+    <string name="Father_Name">Όνομα Πατρός</string>
+    <string name="Firstname">Όνομα</string>
+    <string name="Home_Address">Διεύθυνση κατοικίας</string>
+    <string name="Phone_Number">Τηλέφωνο</string>
+    <string name="Semester">Εξάμηνο</string>
+    <string name="Send">Αποστολή</string>
+    <string name="Send_Address">Διεύθυνση αποστολής/FAX</string>
+    <string name="Student_ID">Αριθμός Μητρώου Α.Μ.</string>
+    <string name="Surname">Επώνυμο</string>
+    <string name="action_example"></string>
+    <string name="action_settings">Ρυθμίσεις</string>
+    <string name="Send_way">Επιθυμώ να τα παραλάβω:</string>
+    <string name="Courier">με courier, με χρέωση παραλήπτη, στη διεύθυνση</string>
+    <string name="Office">από την Γραμματεία, την επομένη της αίτησης</string>
+    <string name="FAX">με fax στο τηλέφωνο</string>
+    <string name="Papers_to_get">Παρακαλώ να μου χορηγηθεί:</string>
     <!-- Nav Drawer Menu Items -->
 
 </resources>

@@ -11,8 +11,9 @@
         android:layout_height="150dp"
         android:id="@+id/imageView"
         android:layout_gravity="center"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="144dp" />
 
     <TextView
         android:layout_height="wrap_content"
@@ -64,10 +65,11 @@
         android:text="Icarus Mobile  -  v1.0"
         android:id="@+id/textView4"
         android:fontFamily="sans-serif-medium"
-        android:layout_above="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="29dp"
-        android:textColor="#ff7286b1" />
+        android:textColor="#ff7286b1"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignStart="@+id/textView3"
+        android:layout_marginTop="93dp" />
 
     <ImageView
         android:src="@drawable/ic_nikos"

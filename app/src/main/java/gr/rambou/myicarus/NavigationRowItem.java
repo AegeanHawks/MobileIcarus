@@ -1,8 +1,5 @@
 package gr.rambou.myicarus;
 
-/**
- * Created by darknight on 1/17/2015.
- */
 public class NavigationRowItem {
     String Title;
     int ImageId;
