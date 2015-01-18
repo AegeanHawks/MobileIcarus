@@ -1,5 +1,7 @@
 package gr.rambou.myicarus;
 
+import android.util.Log;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.CookieStore;
@@ -21,6 +23,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -41,14 +44,14 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.X509TrustManager;
 
-public class Icarus {
+public class Icarus implements Serializable {
 
     private final String Username, Password;
     private String StudentFullName, ID, StudentName, Surname;
     public Map<String, String> Cookies;
-    private Document Page;
+    //private Document Page;
     private ArrayList<Lesson> Succeed_Lessons, All_Lessons, Exams_Lessons;
-    private SSLContext context;
+
 
     public enum SendType {
 
@@ -86,7 +89,7 @@ public class Icarus {
             Cookies = res.cookies();
 
             //Αποθηκεύουμε το περιεχόμενο της σελίδας
-            Page = res.parse();
+            Document Page = res.parse();
 
             //Ελέγχουμε αν συνδεθήκαμε
             Elements name = Page.select("div#header_login").select("u");
@@ -105,13 +108,13 @@ public class Icarus {
                 }
 
                 //Παίρνουμε τους βαθμούς του φοιτητή
-                LoadMarks(false);
+                LoadMarks(Page);
 
                 return true;
             }
 
         } catch (IOException | KeyManagementException | NoSuchAlgorithmException ex) {
-            Logger.getLogger(Icarus.class.getName()).log(Level.SEVERE, null, ex);
+            Log.v("Icarus Class", ex.toString());
         }
 
         return false;
@@ -204,14 +207,12 @@ public class Icarus {
         return true;
     }
 
-    public void LoadMarks(boolean reload) {
-        Document response = null;
+    public void LoadMarks(Document response) {
+
         All_Lessons = new ArrayList<>();
         Succeed_Lessons = new ArrayList<>();
         Exams_Lessons = new ArrayList<>();
-
-        //Ελέγχουμε αν πρέπει να ξαναφορτώσουμε την σελίδα
-        if (reload) {
+        if(response==null) {
             try {
                 //We send the request
                 response = Jsoup
@@ -221,8 +222,6 @@ public class Icarus {
             } catch (IOException ex) {
                 Logger.getLogger(Icarus.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
-            response = Page;
         }
 
         //Start Catching Lessons
@@ -314,6 +313,7 @@ public class Icarus {
     private void enableSSLSocket() throws KeyManagementException, NoSuchAlgorithmException {
         //HttpsURLConnection.setDefaultHostnameVerifier((String hostname, SSLSession session) -> true);
 
+        SSLContext context;
         context = SSLContext.getInstance("TLS");
         context.init(null, new X509TrustManager[]{new X509TrustManager() {
             @Override

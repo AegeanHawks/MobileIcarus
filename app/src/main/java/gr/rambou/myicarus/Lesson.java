@@ -1,13 +1,14 @@
 package gr.rambou.myicarus;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Lesson {
+public class Lesson implements Serializable{
 
     private final String ID;
     private final String Title;
     private final double Mark;
-    private final String Cemester;
+    private final String Semester;
     private final Date Statement;
     private final Date Exam;
     private final LessonStatus Status;
@@ -15,13 +16,13 @@ public class Lesson {
     public static enum LessonStatus {
 
         PASSED, FAILED, NOT_GIVEN
-    };
+    }
 
-    public Lesson(String id, String title, double mark, String cemester, Date statement, Date exam, LessonStatus status) {
+    public Lesson(String id, String title, double mark, String semester, Date statement, Date exam, LessonStatus status) {
         this.ID = id;
         this.Title = title;
         this.Mark = mark;
-        this.Cemester = cemester;
+        this.Semester = semester;
         this.Statement = statement;
         this.Exam = exam;
         this.Status = status;
@@ -36,7 +37,7 @@ public class Lesson {
     }
 
     public String Get_Cemester() {
-        return Cemester;
+        return Semester;
     }
 
     public double Get_Mark() {
@@ -57,7 +58,7 @@ public class Lesson {
 
     @Override
     public String toString() {
-        return "ID: [" + ID + "] Μάθημα: [" + Title + "] Εξάμηνο: [" + Cemester
+        return "ID: [" + ID + "] Μάθημα: [" + Title + "] Εξάμηνο: [" + Semester
                 + "ο] Βαθμός: [" + Mark + "] Δήλωση: [" + Statement
                 + "] Εξέταση: [" + Exam + "] Κατάσταση: [" + Status + "]";
     }

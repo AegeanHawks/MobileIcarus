@@ -91,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Login"
-                android:id="@+id/button"
+                android:id="@+id/Login"
                 android:layout_below="@+id/Password"
                 android:layout_centerHorizontal="true"
                 android:nestedScrollingEnabled="false"
@@ -103,8 +103,12 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/ErrorMsg"
                 android:visibility="invisible"
-                android:layout_below="@+id/button"
-                android:layout_centerHorizontal="true" />
+                android:layout_below="@+id/Login"
+                android:layout_centerHorizontal="true"
+                android:text="@string/Error_Login"
+                android:textSize="13dp"
+                android:elegantTextHeight="false"
+                android:textColor="#ff404fb1" />
         </RelativeLayout>
 
         <RelativeLayout

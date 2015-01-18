@@ -1,17 +1,17 @@
 package gr.rambou.myicarus;
 
-import android.content.res.TypedArray;
-import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -108,17 +107,18 @@ public class NavigationDrawerFragment extends Fragment {
         //endregion
 
         //region Get menu titles and icons
-        String[] navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
+        //String[] navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
         TypedArray navMenuIcons= getResources().obtainTypedArray(R.array.nav_drawer_icons);
 
         ArrayList<NavigationRowItem> rowItems = new ArrayList<NavigationRowItem>();
 
         //Needs to change
         //rowItems.add(new NavigationRowItem("test", R.drawable.ic_launcher));
-        rowItems.add(new NavigationRowItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
-        rowItems.add(new NavigationRowItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
-        rowItems.add(new NavigationRowItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
-        rowItems.add(new NavigationRowItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
+        rowItems.add(new NavigationRowItem(getString(R.string.Grades), navMenuIcons.getResourceId(0, -1)));
+        rowItems.add(new NavigationRowItem(getString(R.string.Request), navMenuIcons.getResourceId(1, -1)));
+        rowItems.add(new NavigationRowItem(getString(R.string.Course_Register), navMenuIcons.getResourceId(2, -1)));
+        rowItems.add(new NavigationRowItem(getString(R.string.About), navMenuIcons.getResourceId(3, -1)));
+        rowItems.add(new NavigationRowItem(getString(R.string.Logout), navMenuIcons.getResourceId(4, -1)));
 
         //endregion
 
@@ -165,8 +165,8 @@ public class NavigationDrawerFragment extends Fragment {
                 getActivity(),                    /* host Activity */
                 mDrawerLayout,                    /* DrawerLayout object */
                 R.drawable.ic_drawer,             /* nav drawer image to replace 'Up' caret */
-                R.string.navigation_drawer_open,  /* "open drawer" description for accessibility */
-                R.string.navigation_drawer_close  /* "close drawer" description for accessibility */
+                R.drawable.ic_drawer,  /* "open drawer" description for accessibility */
+                R.drawable.ic_drawer  /* "close drawer" description for accessibility */
         ) {
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -289,8 +289,8 @@ public class NavigationDrawerFragment extends Fragment {
     private void showGlobalContextActionBar() {
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setTitle(R.string.app_name);
+        //actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        actionBar.setTitle("");
     }
 
     private ActionBar getActionBar() {

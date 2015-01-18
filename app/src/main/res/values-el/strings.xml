@@ -4,4 +4,20 @@
     <string name="Password">Κωδικός</string>
     <string name="Login">Σύνδεση</string>
     <string name="Error_Login">Λάθος στοιχεία ή ο server είναι down!</string>
+    <string name="Grades">Βαθμοί</string>
+    <string name="Request">Αιτήσεις</string>
+    <string name="Course_Register">Δήλωση Μαθημάτων</string>
+    <string name="About">About</string>
+    <string name="Logout">Αποσύνδεση</string>
+    <!-- Nav Drawer Menu -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_grades</item>
+        <item>@drawable/ic_request</item>
+        <item>@drawable/ic_register</item>
+        <item>@drawable/ic_about</item>
+        <item>@drawable/ic_logout</item>
+    </array>
+    <!-- Nav Drawer Menu Items -->
+
 </resources>
