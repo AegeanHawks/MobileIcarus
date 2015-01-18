@@ -1,9 +1,97 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="gr.rambou.myicarus.About">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="I am a dummy" />
 
-</FrameLayout>
+
+    <ImageView
+        android:src="@drawable/icarus"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/imageView"
+        android:layout_gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Bousios Nikolaos                   (RambouCop)"
+        android:id="@+id/textView"
+        android:fontFamily="sans-serif-light"
+        android:textColor="#ff5e7fb1"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:textAlignment="center"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Chasiotis Konstantinos (Armageddonas)"
+        android:id="@+id/textView2"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center_horizontal"
+        android:textColor="#ff5e7fb1"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Kaonis Charis (Ph4ntom)"
+        android:fontFamily="sans-serif-light"
+        android:textAlignment="center"
+        android:id="@+id/textView3"
+        android:gravity="center_horizontal"
+        android:textColor="#ff5e7fb1"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Icarus Mobile  -  v1.0"
+        android:id="@+id/textView4"
+        android:fontFamily="sans-serif-medium"
+        android:layout_above="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="29dp"
+        android:textColor="#ff7286b1" />
+
+    <ImageView
+        android:src="@drawable/ic_nikos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:layout_alignTop="@+id/textView"
+        android:layout_above="@+id/textView2"
+        android:layout_toLeftOf="@+id/textView4"
+        android:layout_alignLeft="@+id/imageView4"
+        android:layout_alignStart="@+id/imageView4" />
+
+    <ImageView
+        android:src="@drawable/ic_kostas"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:layout_below="@+id/textView"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_alignBottom="@+id/textView2" />
+
+    <ImageView
+        android:src="@drawable/ic_charis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView4"
+        android:layout_below="@+id/textView2"
+        android:layout_toLeftOf="@+id/textView3"
+        android:layout_toStartOf="@+id/textView3" />
+</RelativeLayout>

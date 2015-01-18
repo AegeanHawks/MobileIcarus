@@ -53,7 +53,7 @@
 
 
     <ImageView
-        android:src="@drawable/symbol_check"
+        android:src="@drawable/ic_info"
         android:id="@+id/Lesson_Passed"
         android:layout_width="45dp"
         android:layout_height="45dp"
