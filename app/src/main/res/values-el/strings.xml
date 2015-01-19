@@ -35,6 +35,9 @@
     <string name="Office">από την Γραμματεία, την επομένη της αίτησης</string>
     <string name="FAX">με fax στο τηλέφωνο</string>
     <string name="Papers_to_get">Παρακαλώ να μου χορηγηθεί:</string>
+    <string name="RequestSuccess">Η αίτηση σας στάλθηκε επιτυχώς!</string>
+    <string name="Notification">Ειδοποίηση</string>
+    <string name="NotificationMSG">Παρακαλώ συμπληρώστε όλα τα πεδία...</string>
     <!-- Nav Drawer Menu Items -->
 
 </resources>

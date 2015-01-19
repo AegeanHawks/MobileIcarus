@@ -165,6 +165,7 @@
         android:id="@+id/textView12"
         android:layout_column="2" />
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/radiogroup"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -207,46 +208,218 @@
             android:layout_column="1" />
 
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_column="2">
+    <TableLayout
+        android:paddingTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0,1">
 
-        <ExpandableListView
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/expandableListView"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignBottom="@+id/textView14"/>
+        <TableRow >
+            <EditText
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/textView_0"
+                android:numeric="integer"
+                android:inputType="number"
+                android:text="0" />
 
-        <TextView
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Πιστοποιητικό Αναλυτικής Βαθμολογίας Πτυχιούχου, με Βαθμό Πτυχίου"
-            android:id="@+id/textView14"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_toRightOf="@+id/expandableListView"
-            android:layout_toEndOf="@+id/expandableListView" />
+            <TextView
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Βεβαίωση Σπουδών"
+                android:id="@+id/textView1_text" />
+        </TableRow>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Send"
-            android:id="@+id/button1"
-            android:onClick="RequestSend_Clicked"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:layout_below="@+id/textView14"
-            />
 
-    </RelativeLayout>
+        <TableRow >
+            <EditText
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/textView_1"
+                android:numeric="integer"
+                android:inputType="number"
+                android:text="0"/>
 
+            <TextView
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Πιστοποιητικό Αναλυτικής Βαθμολογίας"
+                android:id="@+id/textView2_text"/>
+        </TableRow>
+
+        <TableRow >
+            <EditText
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/textView_2"
+                android:numeric="integer"
+                android:inputType="number"
+                android:text="0"/>
+
+            <TextView
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Πιστοποιητικό Αναλυτικής Βαθμολογίας Πτυχιούχου, με Βαθμό Πτυχίου"
+                android:id="@+id/textView3_text"/>
+        </TableRow>
+
+        <TableRow>
+            <EditText
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/textView_3"
+                android:numeric="integer"
+                android:inputType="number"
+                android:text="0"/>
+
+            <TextView
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Πιστοποιητικό Αναλυτικής Βαθμολογίας Πτυχιούχου, χωρίς Βαθμό Πτυχίου"
+                android:id="@+id/textView14"/>
+        </TableRow>
+
+        <TableRow android:layout_width="fill_parent">
+            <EditText
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/textView_4"
+                android:numeric="integer"
+                android:inputType="number"
+                android:text="0"/>
+
+            <TextView
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Βεβαίωση για την στρατολογία"
+                android:id="@+id/textView4_text"/>
+        </TableRow>
+
+        <TableRow android:layout_width="fill_parent">
+            <EditText
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/textView_5"
+                android:numeric="integer"
+                android:inputType="number"
+                android:text="0"/>
+
+            <TextView
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Βεβαίωση Διαγραφής"
+                android:id="@+id/textView5_text"/>
+        </TableRow>
+
+        <TableRow android:layout_width="fill_parent">
+            <EditText
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/textView_6"
+                android:numeric="integer"
+                android:inputType="number"
+                android:text="0"/>
+
+            <TextView
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Επικυρωμένο Αντίγραφο Πτυχίου"
+                android:id="@+id/textView6_text"/>
+        </TableRow>
+
+        <TableRow >
+            <EditText
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/textView_7"
+                android:numeric="integer"
+                android:inputType="number"
+                android:text="0"/>
+
+            <TextView
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Βεβαίωση ότι πληρώ προϋποθέσεις απόκτησης πτυχίου"
+                android:id="@+id/textView7_text"/>
+        </TableRow>
+
+        <TableRow >
+            <EditText
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/textView_8"
+                android:numeric="integer"
+                android:inputType="number"
+                android:text="0"/>
+
+            <TextView
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Βεβαίωση ότι συμμετείχα στο μάθημα Πρακτική Ασκηση"
+                android:id="@+id/textView8_text"/>
+        </TableRow>
+
+        <TableRow android:layout_width="fill_parent">
+            <EditText
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/textView_9"
+                android:numeric="integer"
+                android:inputType="number"
+                android:text="0"/>
+
+            <TextView
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Πιστοποιητικό στεγαστικού επιδόματος"
+                android:id="@+id/textView9_text"/>
+        </TableRow>
+
+        <TableRow android:layout_width="fill_parent">
+            <EditText
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/textView_10"
+                android:numeric="integer"
+                android:inputType="number"
+                android:text="0"/>
+
+            <TextView
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Αλλο"
+                android:id="@+id/textView10_text"/>
+        </TableRow>
+
+    </TableLayout>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/another_paper"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Send"
+        android:id="@+id/button1"
+        android:onClick="RequestSend_Clicked"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_below="@+id/textView14"
+        />
 
 </TableLayout>
 </ScrollView>

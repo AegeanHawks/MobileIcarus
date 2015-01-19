@@ -1,21 +1,26 @@
 package gr.rambou.myicarus;
 
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -124,14 +129,22 @@ public class MainActivity extends ActionBarActivity
     public void RequestSend_Clicked(View view){
         Bundle args = new Bundle();
         args.putString("fathername",((TextView) findViewById(R.id.fathername)).getText().toString());
-        args.putInt("Semester", Integer.valueOf(((TextView) findViewById(R.id.semester)).getText().toString()));
+        try {
+            Integer semester = Integer.valueOf(((TextView) findViewById(R.id.semester)).getText().toString());
+            args.putInt("Semester", semester.intValue());
+        }catch(Exception e){
+            SendNotification(getString(R.string.NotificationMSG));
+            return;
+        }
         args.putString("address",((TextView) findViewById(R.id.home_address)).getText().toString());
         args.putString("phone",((TextView) findViewById(R.id.phone_number)).getText().toString());
         args.putString("send_address",((TextView) findViewById(R.id.fax_or_address)).getText().toString());
 
-        boolean checked = ((RadioButton) view).isChecked();
+        RadioGroup rg=  (RadioGroup)findViewById(R.id.radiogroup);
+
+        boolean checked = ((RadioButton)this.findViewById(rg.getCheckedRadioButtonId())).isChecked();
         // Check which radio button was clicked
-        switch(view.getId()) {
+        switch(rg.getId()) {
             case R.id.radioButton:
                 if (checked)
                     args.putSerializable("SendType",Icarus.SendType.OFFICE);
@@ -147,23 +160,52 @@ public class MainActivity extends ActionBarActivity
         }
 
         String[] papers = new String[11];
-        papers[0] = "";
-        papers[1] = "";
-        papers[2] = "";
-        papers[3] = "";
-        papers[4] = "";
-        papers[5] = "";
-        papers[6] = "";
-        papers[7] = "";
-        papers[8] = "";
-        papers[9] = "";
-        papers[10] = "";
+        papers[0] = ((TextView) findViewById(R.id.textView_0)).getText().toString();
+        papers[1] = ((TextView) findViewById(R.id.textView_1)).getText().toString();
+        papers[2] = ((TextView) findViewById(R.id.textView_2)).getText().toString();
+        papers[3] = ((TextView) findViewById(R.id.textView_3)).getText().toString();
+        papers[4] = ((TextView) findViewById(R.id.textView_4)).getText().toString();
+        papers[5] = ((TextView) findViewById(R.id.textView_5)).getText().toString();
+        papers[6] = ((TextView) findViewById(R.id.textView_6)).getText().toString();
+        papers[7] = ((TextView) findViewById(R.id.textView_7)).getText().toString();
+        papers[8] = ((TextView) findViewById(R.id.textView_8)).getText().toString();
+        papers[9] = ((TextView) findViewById(R.id.textView_9)).getText().toString();
+        papers[10] = ((TextView) findViewById(R.id.another_paper)).getText().toString();
 
         args.putStringArray("papers",papers);
 
         new RequestSend().execute(args);
     }
 
+    private void SendNotification(String message){
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.icarus)
+                        .setContentTitle(getString(R.string.Notification))
+                        .setContentText(message);
+        /*// Creates an explicit intent for an Activity in your app
+        Intent resultIntent = new Intent(this, MainActivity.class);
+
+        // The stack builder object will contain an artificial back stack for the
+        // started Activity.
+        // This ensures that navigating backward from the Activity leads out of
+        // your application to the Home screen.
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        // Adds the back stack for the Intent (but not the Intent itself)
+        stackBuilder.addParentStack(MainActivity.class);
+        // Adds the Intent that starts the Activity to the top of the stack
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);*/
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        // mId allows you to update the notification later on.
+        mNotificationManager.notify(1, mBuilder.build());
+    }
     private class RequestSend extends AsyncTask<Bundle,Void , Void> {
 
         @Override
@@ -174,13 +216,15 @@ public class MainActivity extends ActionBarActivity
         @Override
         protected Void doInBackground(Bundle... params) {
             Bundle b = params[0];
-            myicarus.SendRequest(b.getString("fathername"),b.getInt("Semester"),b.getString("address"),b.getString("phone"),b.getString("send_address"), (Icarus.SendType) b.getSerializable("SendType"), b.getStringArray("papers") );
+            Boolean success = myicarus.SendRequest(b.getString("fathername"),b.getInt("Semester"),b.getString("address"),b.getString("phone"),b.getString("send_address"), (Icarus.SendType) b.getSerializable("SendType"), b.getStringArray("papers") );
+            Log.v("BooleanValue Success request?:",success.toString());
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
+            SendNotification(getString(R.string.RequestSuccess));
         }
     }
 
