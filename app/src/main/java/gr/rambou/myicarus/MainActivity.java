@@ -2,6 +2,7 @@ package gr.rambou.myicarus;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -79,22 +82,24 @@ public class MainActivity extends ActionBarActivity
 
     public void onSectionAttached(int number) {
         //String[] navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
+        Bundle bundle = new Bundle();
         switch (number) {
             case 1:
                 mTitle = getString(R.string.Grades);
                 ArrayList<Lesson> arraylist = myicarus.getAll_Lessons();
-                Bundle bundle = new Bundle();
                 bundle.putSerializable("arraylist", arraylist);
                 bundle.putSerializable("myicarus", myicarus);
                 ChangeFragment(new Grades(), bundle);
                 break;
             case 2:
                 mTitle = getString(R.string.Request);
-                ChangeFragment(new request(),null);
+                bundle.putSerializable("myicarus", myicarus);
+                ChangeFragment(new request(), bundle);
                 break;
             case 3:
                 mTitle = getString(R.string.Course_Register);
-                //ChangeFragment(argvar);
+                bundle.putSerializable("myicarus", myicarus);
+                //ChangeFragment(new request(),bundle);
                 break;
             case 4:
                 mTitle = getString(R.string.About);
@@ -116,6 +121,68 @@ public class MainActivity extends ActionBarActivity
         actionBar.setTitle(mTitle);
     }
 
+    public void RequestSend_Clicked(View view){
+        Bundle args = new Bundle();
+        args.putString("fathername",((TextView) findViewById(R.id.fathername)).getText().toString());
+        args.putInt("Semester", Integer.valueOf(((TextView) findViewById(R.id.semester)).getText().toString()));
+        args.putString("address",((TextView) findViewById(R.id.home_address)).getText().toString());
+        args.putString("phone",((TextView) findViewById(R.id.phone_number)).getText().toString());
+        args.putString("send_address",((TextView) findViewById(R.id.fax_or_address)).getText().toString());
+
+        boolean checked = ((RadioButton) view).isChecked();
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.radioButton:
+                if (checked)
+                    args.putSerializable("SendType",Icarus.SendType.OFFICE);
+                    break;
+            case R.id.radioButton1:
+                if (checked)
+                    args.putSerializable("SendType",Icarus.SendType.COURIER);
+                    break;
+            case R.id.radioButton2:
+                if (checked)
+                    args.putSerializable("SendType",Icarus.SendType.FAX);
+                    break;
+        }
+
+        String[] papers = new String[11];
+        papers[0] = "";
+        papers[1] = "";
+        papers[2] = "";
+        papers[3] = "";
+        papers[4] = "";
+        papers[5] = "";
+        papers[6] = "";
+        papers[7] = "";
+        papers[8] = "";
+        papers[9] = "";
+        papers[10] = "";
+
+        args.putStringArray("papers",papers);
+
+        new RequestSend().execute(args);
+    }
+
+    private class RequestSend extends AsyncTask<Bundle,Void , Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Bundle... params) {
+            Bundle b = params[0];
+            myicarus.SendRequest(b.getString("fathername"),b.getInt("Semester"),b.getString("address"),b.getString("phone"),b.getString("send_address"), (Icarus.SendType) b.getSerializable("SendType"), b.getStringArray("papers") );
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

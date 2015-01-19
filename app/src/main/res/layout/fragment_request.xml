@@ -238,6 +238,7 @@
             android:layout_height="wrap_content"
             android:text="@string/Send"
             android:id="@+id/button1"
+            android:onClick="RequestSend_Clicked"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:gravity="center"

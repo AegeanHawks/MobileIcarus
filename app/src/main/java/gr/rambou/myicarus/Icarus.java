@@ -53,12 +53,12 @@ public class Icarus implements Serializable {
     private ArrayList<Lesson> Succeed_Lessons, All_Lessons, Exams_Lessons;
 
 
-    public enum SendType {
+    public enum SendType{
 
         OFFICE, COURIER, FAX
     }
 
-    public enum PaperType {
+    public enum PaperType{
 
         bebewsh_spoudwn, analutikh_ba8mologia, analutikh_ba8mologia_ptuxio_me_ba8mo, analutikh_ba8mologia_ptuxio_xwris_ba8mo,
         stratologia, diagrafh, antigrafo_ptuxiou, plhrw_proupo8eseis_apokthseis_ptuxiou, praktikh_askhsh, stegastiko_epidoma,
