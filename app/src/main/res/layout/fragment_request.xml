@@ -227,7 +227,6 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Πιστοποιητικό Αναλυτικής Βαθμολογίας Πτυχιούχου, με Βαθμό Πτυχίου"
             android:id="@+id/textView14"
-            android:layout_toRighttOf="@+id/expandableListView"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
