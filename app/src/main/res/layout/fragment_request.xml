@@ -30,7 +30,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/student_id"
-            android:layout_column="2" />
+            android:layout_column="2"
+            android:hint="321/XXXXXX" />
     </TableRow>
 
     <TableRow
@@ -68,7 +69,6 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="phone"
             android:ems="10"
             android:id="@+id/firstname"
             android:layout_column="2" />
@@ -89,7 +89,6 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="phone"
             android:ems="10"
             android:id="@+id/fathername"
             android:layout_column="2" />
@@ -214,16 +213,38 @@
         android:layout_column="2">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Πιστοποιητικό Αναλυτικής Βαθμολογίας Πτυχιούχου, με Βαθμό Πτυχίου"
             android:id="@+id/textView14"
+            android:layout_toRighttOf="@+id/expandableListView"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="23dp"
-            android:layout_marginEnd="23dp" />
+            android:layout_toRightOf="@+id/expandableListView"
+            android:layout_toEndOf="@+id/expandableListView" />
+
+        <ExpandableListView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/expandableListView"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/textView3"
+            android:layout_alignBottom="@+id/textView14"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Send"
+            android:id="@+id/button1"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:layout_below="@+id/textView14"
+            />
 
     </RelativeLayout>
 

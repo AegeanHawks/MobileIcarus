@@ -70,6 +70,12 @@ public class Grades extends Fragment implements SwipeRefreshLayout.OnRefreshList
 
         @Override
         protected ArrayList<Lesson> doInBackground(Void... params) {
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             System.setProperty("jsse.enableSNIExtension", "false");
             myicarus.LoadMarks(null);
             ArrayList<Lesson> arraylist = myicarus.getAll_Lessons();

@@ -27,6 +27,7 @@
     <string name="FAX">fax, on phone</string>
     <string name="Papers_to_get">I wish to get:</string>
 
+
     <!-- Nav Drawer Menu -->
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
