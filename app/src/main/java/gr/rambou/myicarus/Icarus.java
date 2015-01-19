@@ -35,8 +35,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -164,6 +162,7 @@ public class Icarus implements Serializable {
         //We send the request
         HttpPost post = new HttpPost("https://icarus-icsd.aegean.gr/student_aitisi.php");
         post.setEntity(entity);
+
         HttpClient client = HttpClientBuilder.create().build();
 
         //Gets new/old cookies and set them in store and store to CTX
@@ -179,7 +178,7 @@ public class Icarus implements Serializable {
         try {
             response = client.execute(post, CTX);
         } catch (IOException ex) {
-            Logger.getLogger(Icarus.class.getName()).log(Level.SEVERE, null, ex);
+            Log.v(Icarus.class.getName().toString(), ex.toString());
         }
 
         //Check if user credentials are ok
@@ -220,7 +219,7 @@ public class Icarus implements Serializable {
                         .cookies(Cookies)
                         .get();
             } catch (IOException ex) {
-                Logger.getLogger(Icarus.class.getName()).log(Level.SEVERE, null, ex);
+                Log.v(Icarus.class.getName().toString(), ex.toString());
             }
         }
 
