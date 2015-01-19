@@ -20,7 +20,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -68,8 +67,8 @@ public class MainActivity extends ActionBarActivity
                 .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
                 .commit();
     }
-    private void ChangeFragment(Fragment newFragment, Bundle data)
-    {
+
+    private void ChangeFragment(Fragment newFragment, Bundle data){
         if( data!=null ){
             newFragment.setArguments(data);
         }
@@ -136,27 +135,17 @@ public class MainActivity extends ActionBarActivity
             SendNotification(getString(R.string.NotificationMSG));
             return;
         }
+
         args.putString("address",((TextView) findViewById(R.id.home_address)).getText().toString());
         args.putString("phone",((TextView) findViewById(R.id.phone_number)).getText().toString());
         args.putString("send_address",((TextView) findViewById(R.id.fax_or_address)).getText().toString());
 
-        RadioGroup rg=  (RadioGroup)findViewById(R.id.radiogroup);
-
-        boolean checked = ((RadioButton)this.findViewById(rg.getCheckedRadioButtonId())).isChecked();
-        // Check which radio button was clicked
-        switch(rg.getId()) {
-            case R.id.radioButton:
-                if (checked)
-                    args.putSerializable("SendType",Icarus.SendType.OFFICE);
-                    break;
-            case R.id.radioButton1:
-                if (checked)
-                    args.putSerializable("SendType",Icarus.SendType.COURIER);
-                    break;
-            case R.id.radioButton2:
-                if (checked)
-                    args.putSerializable("SendType",Icarus.SendType.FAX);
-                    break;
+        if(((RadioButton) findViewById(R.id.radioButton)).isChecked()){
+            args.putSerializable("SendType",Icarus.SendType.OFFICE);
+        }else if(((RadioButton) findViewById(R.id.radioButton1)).isChecked()){
+            args.putSerializable("SendType",Icarus.SendType.COURIER);
+        }else {
+            args.putSerializable("SendType",Icarus.SendType.FAX);
         }
 
         String[] papers = new String[11];
@@ -216,6 +205,7 @@ public class MainActivity extends ActionBarActivity
         @Override
         protected Void doInBackground(Bundle... params) {
             Bundle b = params[0];
+            System.setProperty("jsse.enableSNIExtension", "false");
             Boolean success = myicarus.SendRequest(b.getString("fathername"),b.getInt("Semester"),b.getString("address"),b.getString("phone"),b.getString("send_address"), (Icarus.SendType) b.getSerializable("SendType"), b.getStringArray("papers") );
             Log.v("BooleanValue Success request?:",success.toString());
             return null;

@@ -11,7 +11,7 @@ import org.apache.http.client.protocol.ClientContext;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.BasicCookieStore;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
@@ -164,7 +164,7 @@ public class Icarus implements Serializable {
         //We send the request
         HttpPost post = new HttpPost("https://icarus-icsd.aegean.gr/student_aitisi.php");
         post.setEntity(entity);
-        HttpClient client = HttpClients.custom().build();
+        HttpClient client = HttpClientBuilder.create().build();
 
         //Gets new/old cookies and set them in store and store to CTX
         CookieStore Store = new BasicCookieStore();

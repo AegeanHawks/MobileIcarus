@@ -172,6 +172,7 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="@string/Office"
             android:id="@+id/radioButton"
             android:layout_column="1"
