@@ -141,7 +141,8 @@ public class MainActivity extends ActionBarActivity
             Integer semester = Integer.valueOf(((TextView) findViewById(R.id.semester)).getText().toString());
             args.putInt("Semester", semester.intValue());
         }catch(Exception e){
-            SendNotification(getString(R.string.NotificationMSG));
+            Toast.makeText(getBaseContext(),getString(R.string.NotificationMSG),
+                    Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -227,7 +228,7 @@ public class MainActivity extends ActionBarActivity
             Bundle b = params[0];
             System.setProperty("jsse.enableSNIExtension", "false");
             success = myicarus.SendRequest(b.getString("fathername"),b.getInt("Semester"),b.getString("address"),b.getString("phone"),b.getString("send_address"), (Icarus.SendType) b.getSerializable("SendType"), b.getStringArray("papers") );
-            Log.v("BooleanValue Success request?:",success.toString());
+
             return null;
         }
 
@@ -235,9 +236,11 @@ public class MainActivity extends ActionBarActivity
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             if(success)
-                SendNotification(getString(R.string.RequestSuccess));
+                Toast.makeText(getBaseContext(),getString(R.string.RequestSuccess),
+                    Toast.LENGTH_SHORT).show();
             else
-                SendNotification(getString(R.string.RequestFailed));
+                Toast.makeText(getBaseContext(),getString(R.string.RequestFailed),
+                        Toast.LENGTH_SHORT).show();
         }
     }
 
