@@ -85,6 +85,7 @@
                 android:layout_below="@+id/Username"
                 android:layout_centerHorizontal="true"
                 android:singleLine="true"
+                android:imeOptions="actionDone"
                 android:textColor="#ffff525d" />
 
             <Button
