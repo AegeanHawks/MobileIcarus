@@ -9,12 +9,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class LoginActivity extends Activity {
     private SessionManager session;
-    private ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +22,7 @@ public class LoginActivity extends Activity {
 
         setContentView(R.layout.activity_login);
 
-        spinner = (ProgressBar)findViewById(R.id.progressBar);
-        spinner.setVisibility(View.GONE);
+        ProgressBar spinner = (ProgressBar)findViewById(R.id.progressBar);
 
         // Session Manager
         session = new SessionManager(getApplicationContext());
@@ -47,8 +46,6 @@ public class LoginActivity extends Activity {
 
         new Login().execute(username.getText().toString(),password.getText().toString());
 
-        //this.finish();
-        //endregion
     }
 
     private void hideKeyboard() {
@@ -60,6 +57,25 @@ public class LoginActivity extends Activity {
         }
     }
 
+    private void loading(boolean load){
+        TextView username = (TextView) findViewById(R.id.Username);
+        TextView password = (TextView) findViewById(R.id.Password);
+        Button login = (Button) findViewById(R.id.Login);
+        ProgressBar spinner = (ProgressBar)findViewById(R.id.progressBar);
+
+        if(load){
+            spinner.setVisibility(View.VISIBLE);
+            username.setVisibility(View.INVISIBLE);
+            password.setVisibility(View.INVISIBLE);
+            login.setVisibility(View.INVISIBLE);
+        }else{
+            spinner.setVisibility(View.INVISIBLE);
+            username.setVisibility(View.VISIBLE);
+            password.setVisibility(View.VISIBLE);
+            login.setVisibility(View.VISIBLE);
+        }
+
+    }
     // Title AsyncTask
     private class Login extends AsyncTask<String, Void, Boolean> {
         Icarus myicarus;
@@ -67,7 +83,7 @@ public class LoginActivity extends Activity {
 
         @Override
         protected void onPreExecute() {
-            spinner.setVisibility(View.VISIBLE);
+            loading(true);
         }
 
         @Override
@@ -82,11 +98,11 @@ public class LoginActivity extends Activity {
 
         @Override
         protected void onPostExecute(Boolean result) {
-            spinner.setVisibility(View.GONE);
             if(!result){
                 TextView error = (TextView) findViewById(R.id.ErrorMsg);
                 error.setText(getString(R.string.Error_Login));
                 error.setVisibility(View.VISIBLE);
+                loading(false);
             }else{
                 session.createLoginSession(username, password);
                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
