@@ -1,5 +1,8 @@
 package gr.rambou.myicarus;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 
 import org.apache.http.HttpEntity;
@@ -71,7 +74,6 @@ public class Icarus implements Serializable {
     }
 
     public boolean login() {
-
         try {
             //ενεργοποιούμε το SSL
             enableSSLSocket();
@@ -119,6 +121,7 @@ public class Icarus implements Serializable {
     }
 
     public boolean SendRequest(String fatherName, Integer cemester, String address, String phone, String send_address, SendType sendtype, String[] papers) {
+
 
         if (papers.length != 11) {
             return false;
@@ -220,6 +223,7 @@ public class Icarus implements Serializable {
                         .get();
             } catch (IOException ex) {
                 Log.v(Icarus.class.getName().toString(), ex.toString());
+                return;
             }
         }
 
