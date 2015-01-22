@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.IBinder;
+import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -24,6 +25,11 @@ public class GradesChecker extends Service {
                         .setSmallIcon(R.drawable.icarus)
                         .setContentTitle("Επ, βγήκε μαθηματάκι...")
                         .setContentText(message);
+
+        //Set vibration when new curriculum arrives
+        Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+        long[] pattern = { 0, 100, 600, 100, 700};
+        vibrator.vibrate(pattern, -1);
 
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
