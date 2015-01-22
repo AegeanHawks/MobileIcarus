@@ -96,7 +96,7 @@
                 android:layout_below="@+id/Password"
                 android:layout_centerHorizontal="true"
                 android:nestedScrollingEnabled="false"
-                android:onClick="Login_Clicked" />
+                android:onClick="Login_Clicked"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -110,6 +110,13 @@
                 android:textSize="13dp"
                 android:elegantTextHeight="false"
                 android:textColor="#ff404fb1" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
         </RelativeLayout>
 
         <RelativeLayout

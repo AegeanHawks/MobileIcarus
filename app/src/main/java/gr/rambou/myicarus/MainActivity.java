@@ -111,8 +111,8 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 5:
                 mTitle = getString(R.string.Logout);
-                Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(i);
+                SessionManager session = new SessionManager(getApplicationContext());
+                session.logoutUser();
                 this.finish();
                 break;
         }
