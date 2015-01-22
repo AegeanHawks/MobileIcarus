@@ -32,6 +32,9 @@ public class SessionManager {
     // Email address (make variable public to access from outside)
     public static final String KEY_PASSWORD = "password";
 
+    // Service state
+    public static  final String SERVICE_STATE = "Service";
+
     // Constructor
     public SessionManager(Context context){
         this._context = context;
@@ -115,9 +118,17 @@ public class SessionManager {
         _context.startActivity(i);
     }
 
-    /**
-     * Quick check for login
-     * **/
+    //Get Service Status
+    public void setServiceState(boolean state){
+        editor.putBoolean(SERVICE_STATE, state);
+        editor.commit();
+    }
+
+    //Set Service Status
+    public Boolean getServiceState(){
+        return pref.getBoolean(SERVICE_STATE, false);
+    }
+
     // Get Login State
     public boolean isLoggedIn(){
         return pref.getBoolean(IS_LOGIN, false);

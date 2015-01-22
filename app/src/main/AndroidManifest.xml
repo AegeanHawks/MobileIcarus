@@ -21,6 +21,12 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main" >
         </activity>
+
+        <service
+            android:name=".GradesChecker"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>

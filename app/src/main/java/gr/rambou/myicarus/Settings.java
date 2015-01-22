@@ -1,12 +1,13 @@
 package gr.rambou.myicarus;
 
-import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
+import android.widget.Switch;
 
 
 public class Settings extends Fragment {
@@ -30,13 +31,13 @@ public class Settings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
-    }
+        View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        SessionManager session = new SessionManager(getActivity());
+        Switch sw = (Switch) rootView.findViewById(R.id.switch1);
+        sw.setChecked(session.getServiceState());
+
+        return rootView;
     }
 
     @Override

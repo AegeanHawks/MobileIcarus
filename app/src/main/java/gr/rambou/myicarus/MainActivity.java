@@ -1,7 +1,10 @@
 package gr.rambou.myicarus;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.AlarmManager;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -10,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -20,10 +24,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class MainActivity extends ActionBarActivity
@@ -174,7 +180,7 @@ public class MainActivity extends ActionBarActivity
                         .setContentTitle(getString(R.string.Notification))
                         .setContentText(message);
         /*// Creates an explicit intent for an Activity in your app
-        Intent resultIntent = new Intent(this, MainActivity.class);
+        Intent resultIntent = new Intent(this, request.class);
 
         // The stack builder object will contain an artificial back stack for the
         // started Activity.
@@ -291,6 +297,47 @@ public class MainActivity extends ActionBarActivity
             ((MainActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
+    }
+
+    public void onSwitchClicked(View view) {
+        // Is the toggle on?
+        boolean on = ((Switch) view).isChecked();
+        SessionManager session = new SessionManager(getApplicationContext());
+
+        Intent intent = new Intent(this, GradesChecker.class);
+        PendingIntent sender = PendingIntent.getService(this, 0, intent, 0);
+        AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        if (on) {
+            //start service
+            if(!isMyServiceRunning(GradesChecker.class)) {
+                // Start service using AlarmManager
+
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.SECOND, 10);
+                alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 12*60*60*1000, sender);
+
+                startService(new Intent(getBaseContext(), GradesChecker.class));
+                session.setServiceState(true);
+            }
+        } else {
+            //stop service
+            if(isMyServiceRunning(GradesChecker.class)) {
+                alarm.cancel(sender);
+                stopService(new Intent(getBaseContext(), GradesChecker.class));
+                session.setServiceState(false);
+            }
+        }
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

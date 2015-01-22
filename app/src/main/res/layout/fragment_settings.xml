@@ -5,24 +5,15 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Ειδοποίηση για νέες βαθμολογίες"
-        android:id="@+id/textView15"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
-
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Switch"
+        android:text="Ειδοποίηση για νέες βαθμολογίες"
         android:id="@+id/switch1"
+        android:onClick="onSwitchClicked"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/textView15"
-        android:layout_toEndOf="@+id/textView15"
-        android:layout_alignBottom="@+id/textView15" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
 
