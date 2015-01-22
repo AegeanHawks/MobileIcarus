@@ -30,6 +30,7 @@
     <string name="NotificationMSG">Please enter all the fields.</string>
     <string name="RequestSuccess">Your request has been send!</string>
     <string name="RequestFailed">Your request Failed!</string>
+    <string name="action_settings">Settings</string>
 
     <!-- Nav Drawer Menu -->
     <!-- Keep them in order as the titles are in -->
@@ -53,8 +54,7 @@
         <item>Neptune</item>
     </string-array>
 
-    <string name="action_example">Example action</string>
-    <string name="action_settings">Settings</string>
     <string name="title_activity_main" translatable="false">My Icarus</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
