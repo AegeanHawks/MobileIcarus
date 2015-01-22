@@ -29,6 +29,7 @@
     <string name="Notification">Notification</string>
     <string name="NotificationMSG">Please enter all the fields.</string>
     <string name="RequestSuccess">Your request has been send!</string>
+    <string name="RequestFailed">Your request Failed!</string>
 
     <!-- Nav Drawer Menu -->
     <!-- Keep them in order as the titles are in -->

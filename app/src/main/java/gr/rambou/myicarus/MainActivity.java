@@ -195,7 +195,9 @@ public class MainActivity extends ActionBarActivity
         // mId allows you to update the notification later on.
         mNotificationManager.notify(1, mBuilder.build());
     }
+
     private class RequestSend extends AsyncTask<Bundle,Void , Void> {
+        Boolean success;
 
         @Override
         protected void onPreExecute() {
@@ -206,7 +208,7 @@ public class MainActivity extends ActionBarActivity
         protected Void doInBackground(Bundle... params) {
             Bundle b = params[0];
             System.setProperty("jsse.enableSNIExtension", "false");
-            Boolean success = myicarus.SendRequest(b.getString("fathername"),b.getInt("Semester"),b.getString("address"),b.getString("phone"),b.getString("send_address"), (Icarus.SendType) b.getSerializable("SendType"), b.getStringArray("papers") );
+            success = myicarus.SendRequest(b.getString("fathername"),b.getInt("Semester"),b.getString("address"),b.getString("phone"),b.getString("send_address"), (Icarus.SendType) b.getSerializable("SendType"), b.getStringArray("papers") );
             Log.v("BooleanValue Success request?:",success.toString());
             return null;
         }
@@ -214,7 +216,10 @@ public class MainActivity extends ActionBarActivity
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            SendNotification(getString(R.string.RequestSuccess));
+            if(success)
+                SendNotification(getString(R.string.RequestSuccess));
+            else
+                SendNotification(getString(R.string.RequestFailed));
         }
     }
 
