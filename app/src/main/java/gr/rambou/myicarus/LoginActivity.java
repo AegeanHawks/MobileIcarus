@@ -3,24 +3,38 @@ package gr.rambou.myicarus;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class LoginActivity extends Activity {
     private SessionManager session;
+    private Animation moveRight;
+    private Animation moveLeft;
+    private ImageView im;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
+
+        im = (ImageView) findViewById(R.id.sun);
+        ImageView waves = (ImageView) findViewById(R.id.waves);
+        ImageView icarus = (ImageView) findViewById(R.id.icarus);
+
+        // load the animation
+        moveRight = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.moveright);
+        moveLeft = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.moveleft);
+        waves.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.waves));
+        icarus.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.icarus));
 
         ProgressBar spinner = (ProgressBar)findViewById(R.id.progressBar);
 
@@ -39,6 +53,7 @@ public class LoginActivity extends Activity {
 
     public void Login_Clicked(View view) {
         hideKeyboard();
+        im.startAnimation(moveRight);
 
         //Take components from xml
         TextView username = (TextView) findViewById(R.id.Username);
@@ -103,6 +118,7 @@ public class LoginActivity extends Activity {
                 error.setText(getString(R.string.Error_Login));
                 error.setVisibility(View.VISIBLE);
                 loading(false);
+                im.startAnimation(moveLeft);
             }else{
                 session.createLoginSession(username, password);
                 Intent i = new Intent(LoginActivity.this, MainActivity.class);

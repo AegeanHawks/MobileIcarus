@@ -4,7 +4,7 @@
     <color name="list_background">#303030</color>
     <color name="list_background_pressed">#992416</color>
     <color name="list_divider">#272727</color>>
-    <color name="list_divider_grades">#808080</color>
+    <color name="list_divider_grades">#ffd4d4d4</color>
     <color name="list_grade">#fff</color>
     <color name="grade_item">#fff</color>
     <color name="grade_title">#303030</color>
