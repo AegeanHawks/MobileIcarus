@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -36,8 +37,6 @@ public class Grades extends Fragment implements SwipeRefreshLayout.OnRefreshList
 
     @Override
     public void onRefresh() {
-        Log.e(getClass().getSimpleName(), "refreshing...");
-
         //thread που εκτελείται και σταματά σε κάποιον χρόνο σε περίπτωση που το refresh αποτύχει
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -46,22 +45,10 @@ public class Grades extends Fragment implements SwipeRefreshLayout.OnRefreshList
             }
         }, REFRESH_TIME_IN_SECONDS * 1000);
 
-
-        try{
-            ArrayList<Lesson> arraylist = new ReloadGrades().execute().get();
-            ListView lessonsList = (ListView) swipeRefreshLayout.findViewById(R.id.grades_listview);
-            lessonsList.setAdapter(new AdapterGrades(
-                    getActivity().getApplicationContext(),
-                    R.layout.grade_layout,
-                    arraylist
-            ));
-        }catch (Exception e){
-            stopSwipeRefresh();
-        }
-
+        //new ReloadGrades().execute();
     }
 
-    public class ReloadGrades extends AsyncTask<Void, Void, ArrayList<Lesson>> {
+    public class ReloadGrades extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {
@@ -69,18 +56,31 @@ public class Grades extends Fragment implements SwipeRefreshLayout.OnRefreshList
         }
 
         @Override
-        protected ArrayList<Lesson> doInBackground(Void... params) {
+        protected Void doInBackground(Void... params) {
             System.setProperty("jsse.enableSNIExtension", "false");
-            myicarus.LoadMarks(null);
-            ArrayList<Lesson> arraylist = myicarus.getAll_Lessons();
 
-            return arraylist;
+            try{
+                myicarus.LoadMarks(null);
+                ArrayList<Lesson> arraylist = myicarus.getAll_Lessons();
+                ListView lessonsList = (ListView) swipeRefreshLayout.findViewById(R.id.grades_listview);
+                lessonsList.setAdapter(new AdapterGrades(
+                        getActivity().getApplicationContext(),
+                        R.layout.grade_layout,
+                        arraylist
+                ));
+                Log.v("REFRESH","success");
+            }catch (Exception e){
+                e.printStackTrace();
+                Log.v("REFRESH",e.getLocalizedMessage());
+            }
+
+            return null;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Lesson> result) {
+        protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            swipeRefreshLayout.setRefreshing(false);
+            stopSwipeRefresh();
         }
     }
 

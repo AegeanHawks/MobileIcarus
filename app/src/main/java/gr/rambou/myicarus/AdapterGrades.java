@@ -67,12 +67,12 @@ public class AdapterGrades extends ArrayAdapter<Lesson> {
             }
             case NOT_GIVEN:
             {
-                holder.imageView.setImageResource(R.drawable.ic_fail);
+                holder.imageView.setImageResource(R.drawable.ic_uknown);
                 break;
             }
             case CANCELLED:
             {
-                holder.imageView.setImageResource(R.drawable.ic_success);
+                holder.imageView.setImageResource(R.drawable.ic_uknown);
                 break;
             }
         }
