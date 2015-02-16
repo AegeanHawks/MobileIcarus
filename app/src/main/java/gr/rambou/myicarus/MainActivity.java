@@ -112,13 +112,18 @@ public class MainActivity extends ActionBarActivity
             case 3:
                 mTitle = getString(R.string.Course_Register);
                 bundle.putSerializable("myicarus", myicarus);
-                //ChangeFragment(new request(),bundle);
+                ChangeFragment(new CourseRegister(),bundle);
                 break;
             case 4:
+                mTitle = getString(R.string.Stats);
+                bundle.putSerializable("myicarus", myicarus);
+                ChangeFragment(new Statistics(), bundle);
+                break;
+            case 5:
                 mTitle = getString(R.string.About);
                 ChangeFragment(new About(),null);
                 break;
-            case 5:
+            case 6:
                 mTitle = getString(R.string.Logout);
                 SessionManager session = new SessionManager(getApplicationContext());
                 session.logoutUser();

@@ -117,8 +117,9 @@ public class NavigationDrawerFragment extends Fragment {
         rowItems.add(new NavigationRowItem(getString(R.string.Grades), navMenuIcons.getResourceId(0, -1)));
         rowItems.add(new NavigationRowItem(getString(R.string.Request), navMenuIcons.getResourceId(1, -1)));
         rowItems.add(new NavigationRowItem(getString(R.string.Course_Register), navMenuIcons.getResourceId(2, -1)));
-        rowItems.add(new NavigationRowItem(getString(R.string.About), navMenuIcons.getResourceId(3, -1)));
-        rowItems.add(new NavigationRowItem(getString(R.string.Logout), navMenuIcons.getResourceId(4, -1)));
+        rowItems.add(new NavigationRowItem(getString(R.string.Stats), navMenuIcons.getResourceId(3, -1)));
+        rowItems.add(new NavigationRowItem(getString(R.string.About), navMenuIcons.getResourceId(4, -1)));
+        rowItems.add(new NavigationRowItem(getString(R.string.Logout), navMenuIcons.getResourceId(5, -1)));
 
         //endregion
 

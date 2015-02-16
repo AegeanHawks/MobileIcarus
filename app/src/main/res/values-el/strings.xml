@@ -38,6 +38,7 @@
     <string name="Notification">Ειδοποίηση</string>
     <string name="NotificationMSG">Παρακαλώ συμπληρώστε όλα τα πεδία...</string>
     <string name="RequestFailed">Η αίτηση σας δεν στάλθηκε, ελέγξτε την σύνδεση σας και ξαναπροσπαθείστε.</string>
+    <string name="Stats">Στατιστικά</string>
     <!-- Nav Drawer Menu Items -->
 
 </resources>
