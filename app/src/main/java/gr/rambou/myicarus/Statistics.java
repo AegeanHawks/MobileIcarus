@@ -74,12 +74,13 @@ public class Statistics extends Fragment {
             data = new DataPoint[arraylist.size()];
 
             int i=0;
-            int m = 0;
+            double m = 0;
             for(Lesson l : arraylist){
                 data[i] = new DataPoint(i,l.Get_Mark());
                 m +=l.Get_Mark();
                 i++;
             }
+            Log.v("",arraylist.size() + " " + m);
             Double k = (double)m/arraylist.size();
 
             mo.setText("Ο μέσος όρος είναι: " + String.format("%.2f", k) + " και περασμένα μαθήματα "+ arraylist.size() + " από τα 56.");
