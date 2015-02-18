@@ -3,13 +3,12 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 21
     buildToolsVersion '20.0.0'
-
     defaultConfig {
         applicationId "gr.rambou.myicarus"
         minSdkVersion 16
         targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
+        versionName '1.1'
+        versionCode 2
     }
     buildTypes {
         release {
@@ -17,10 +16,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    packagingOptions{
+    packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/LICENSE'
+    }
+    productFlavors {
     }
 }
 
@@ -30,7 +31,7 @@ dependencies {
     compile 'com.jjoe64:graphview:4.0.0'
     compile 'com.android.support:recyclerview-v7:21.0.+'
     compile 'com.android.support:cardview-v7:21.0.+'
-    compile group: 'org.apache.httpcomponents' , name: 'httpclient-android' , version: '4.3.5.1'
+    compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
     compile files('src/main/libs/httpmime-4.3.5.jar')
     compile files('src/main/libs/jsoup-1.8.1.jar')
 }
