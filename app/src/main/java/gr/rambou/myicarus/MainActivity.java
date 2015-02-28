@@ -10,16 +10,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,15 +34,22 @@ import java.util.Calendar;
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+    //region Variables
+    private Icarus myicarus;
+    private Grades gradesFragment;
+    private request requestFragment;
+    private CourseRegister courseRegisterFragment;
+    private Statistics statisticsFragment;
+    private About aboutFragment;
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
-    private Icarus myicarus;
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+    //endregion
 
     public Icarus getIcarus(){
         return myicarus;
@@ -66,6 +70,8 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        InitializeFragments();
     }
 
     @Override
@@ -77,51 +83,79 @@ public class MainActivity extends ActionBarActivity
                 .commit();
     }
 
-    private void ChangeFragment(Fragment newFragment, Bundle data){
-        if( data!=null ){
-            newFragment.setArguments(data);
-        }
-
+    /**
+     * Functions that changes the fragment
+     */
+    private void ChangeFragment(Fragment newFragment){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack so the user can navigate back
         transaction.replace(R.id.container, newFragment);
-        transaction.addToBackStack(null);
+        //transaction.addToBackStack(null);
 
         // Commit the transaction
         transaction.commit();
     }
 
+    private void InitializeFragments()
+    {
+        //region Initialize grades Fragment
+        gradesFragment = new Grades();
+        Bundle gradesBundle = new Bundle();
+        ArrayList<Lesson> arraylist = myicarus.getAll_Lessons();
+        gradesBundle.putSerializable("arraylist", arraylist);
+        gradesBundle.putSerializable("myicarus", myicarus);
+        gradesFragment.setArguments(gradesBundle);
+        //endregion
+
+        //region Initialize request Fragment
+        requestFragment = new request();
+        Bundle requestBundle = new Bundle();
+        requestBundle.putSerializable("myicarus", myicarus);
+        requestFragment.setArguments(requestBundle);
+        //endregion
+
+        //region Initialize course register Fragment
+        courseRegisterFragment = new CourseRegister();
+        Bundle courseRegisterBundle = new Bundle();
+        courseRegisterBundle.putSerializable("myicarus", myicarus);
+        courseRegisterFragment.setArguments(requestBundle);
+        //endregion
+
+        //region Initialize statistics Fragment
+        statisticsFragment = new Statistics();
+        Bundle statisticsBundle = new Bundle();
+        statisticsBundle.putSerializable("myicarus", myicarus);
+        statisticsFragment.setArguments(requestBundle);
+        //endregion
+
+        //region Initialize request Fragment
+        aboutFragment = new About();
+        //endregion
+    }
+
     public void onSectionAttached(int number) {
-        //String[] navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
-        Bundle bundle = new Bundle();
         switch (number) {
             case 1:
                 mTitle = getString(R.string.Grades);
-                ArrayList<Lesson> arraylist = myicarus.getAll_Lessons();
-                bundle.putSerializable("arraylist", arraylist);
-                bundle.putSerializable("myicarus", myicarus);
-                ChangeFragment(new Grades(), bundle);
+                ChangeFragment(gradesFragment);
                 break;
             case 2:
                 mTitle = getString(R.string.Request);
-                bundle.putSerializable("myicarus", myicarus);
-                ChangeFragment(new request(), bundle);
+                ChangeFragment(requestFragment);
                 break;
             case 3:
                 mTitle = getString(R.string.Course_Register);
-                bundle.putSerializable("myicarus", myicarus);
-                ChangeFragment(new CourseRegister(),bundle);
+                ChangeFragment(courseRegisterFragment);
                 break;
             case 4:
                 mTitle = getString(R.string.Stats);
-                bundle.putSerializable("myicarus", myicarus);
-                ChangeFragment(new Statistics(), bundle);
+                ChangeFragment(statisticsFragment);
                 break;
             case 5:
                 mTitle = getString(R.string.About);
-                ChangeFragment(new About(),null);
+                ChangeFragment(aboutFragment);
                 break;
             case 6:
                 mTitle = getString(R.string.Logout);
@@ -271,7 +305,7 @@ public class MainActivity extends ActionBarActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            ChangeFragment(new Settings(), null);
+            ChangeFragment(new Settings());
             return true;
         }
 
