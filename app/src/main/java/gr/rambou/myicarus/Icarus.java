@@ -238,15 +238,17 @@ public class Icarus implements Serializable {
             }
         }
 
-        for (Element a : aGrades) {
-            if (!a.select("td").isEmpty()) {
-                All_Lessons.add(getLesson(a));
-            }
-        }
-
         for (Element a : eGrades) {
             if (!a.select("td").isEmpty()) {
                 Exams_Lessons.add(getLesson(a));
+                if(a.select("td").get(6).text().trim().compareTo("")!=0)
+                    All_Lessons.add(getLesson(a));
+            }
+        }
+
+        for (Element a : aGrades) {
+            if (!a.select("td").isEmpty()) {
+                All_Lessons.add(getLesson(a));
             }
         }
 
