@@ -33,13 +33,13 @@ public class AdapterGrades extends ArrayAdapter<Lesson> {
         ViewHolder holder = null;
         Lesson rowItem = getItem(position);
 
-        //LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        LayoutInflater mInflater = new LayoutInflater(context) {
+        LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        /*LayoutInflater mInflater = new LayoutInflater(context) {
             @Override
             public LayoutInflater cloneInContext(Context newContext) {
                 return null;
             }
-        };
+        };*/
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.grade_layout, null);
             holder = new ViewHolder();
