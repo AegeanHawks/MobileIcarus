@@ -1,8 +1,5 @@
 package gr.rambou.myicarus;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.util.Log;
 
 import org.apache.http.HttpEntity;
@@ -54,12 +51,12 @@ public class Icarus implements Serializable {
     private ArrayList<Lesson> Succeed_Lessons, All_Lessons, Exams_Lessons;
 
 
-    public enum SendType{
+    public enum SendType {
 
         OFFICE, COURIER, FAX
     }
 
-    public enum PaperType{
+    public enum PaperType {
 
         bebewsh_spoudwn, analutikh_ba8mologia, analutikh_ba8mologia_ptuxio_me_ba8mo, analutikh_ba8mologia_ptuxio_xwris_ba8mo,
         stratologia, diagrafh, antigrafo_ptuxiou, plhrw_proupo8eseis_apokthseis_ptuxiou, praktikh_askhsh, stegastiko_epidoma,
@@ -214,7 +211,7 @@ public class Icarus implements Serializable {
         All_Lessons = new ArrayList<>();
         Succeed_Lessons = new ArrayList<>();
         Exams_Lessons = new ArrayList<>();
-        if(response==null) {
+        if (response == null) {
             try {
                 //We send the request
                 response = Jsoup
@@ -241,7 +238,7 @@ public class Icarus implements Serializable {
         for (Element a : eGrades) {
             if (!a.select("td").isEmpty()) {
                 Exams_Lessons.add(getLesson(a));
-                if(a.select("td").get(6).text().trim().compareTo("")!=0)
+                if (a.select("td").get(6).text().trim().compareTo("") != 0)
                     All_Lessons.add(getLesson(a));
             }
         }
@@ -296,6 +293,10 @@ public class Icarus implements Serializable {
 
     public ArrayList<Lesson> getAll_Lessons() {
         return All_Lessons;
+    }
+
+    public Object[] getAll_Lessons_array() {
+        return All_Lessons.toArray();
     }
 
     public ArrayList<Lesson> getExams_Lessons() {

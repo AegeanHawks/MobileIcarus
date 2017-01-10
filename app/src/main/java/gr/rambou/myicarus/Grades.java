@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class Grades extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
@@ -23,6 +26,10 @@ public class Grades extends Fragment implements SwipeRefreshLayout.OnRefreshList
     private Icarus myicarus;
     ArrayList<Lesson> studentLessons;
     SwipeRefreshLayout swipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
 
     public static Grades newInstance() {
         Grades fragment = new Grades();
@@ -45,10 +52,11 @@ public class Grades extends Fragment implements SwipeRefreshLayout.OnRefreshList
             }
         }, REFRESH_TIME_IN_SECONDS * 1000);
 
-        //new ReloadGrades().execute();
+        new ReloadGrades().execute();
     }
 
     public class ReloadGrades extends AsyncTask<Void, Void, Void> {
+        Object[] arraylist;
 
         @Override
         protected void onPreExecute() {
@@ -59,19 +67,14 @@ public class Grades extends Fragment implements SwipeRefreshLayout.OnRefreshList
         protected Void doInBackground(Void... params) {
             System.setProperty("jsse.enableSNIExtension", "false");
 
-            try{
+            try {
                 myicarus.LoadMarks(null);
-                ArrayList<Lesson> arraylist = myicarus.getAll_Lessons();
-                ListView lessonsList = (ListView) swipeRefreshLayout.findViewById(R.id.grades_listview);
-                lessonsList.setAdapter(new AdapterGrades(
-                        getActivity().getApplicationContext(),
-                        R.layout.grade_layout,
-                        arraylist
-                ));
-                Log.v("REFRESH","success");
-            }catch (Exception e){
+                arraylist = myicarus.getAll_Lessons_array();
+                //ListView lessonsList = (ListView) swipeRefreshLayout.findViewById(R.id.grades_listview);
+                Log.v("REFRESH", "success");
+            } catch (Exception e) {
                 e.printStackTrace();
-                Log.v("REFRESH",e.getLocalizedMessage());
+                Log.v("REFRESH", e.getLocalizedMessage());
             }
 
             return null;
@@ -81,6 +84,10 @@ public class Grades extends Fragment implements SwipeRefreshLayout.OnRefreshList
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             stopSwipeRefresh();
+
+            // specify an adapter (see also next example)
+            mAdapter = new LessonAdapter(arraylist);
+            mRecyclerView.setAdapter(mAdapter);
         }
     }
 
@@ -103,16 +110,17 @@ public class Grades extends Fragment implements SwipeRefreshLayout.OnRefreshList
         swipeRefreshLayout = (SwipeRefreshLayout) inflater.inflate(R.layout.fragment_grades, container, false);
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        //region Initialize ListView
-        ListView lessonsList = (ListView) swipeRefreshLayout.findViewById(R.id.grades_listview);
+        mRecyclerView = (RecyclerView) swipeRefreshLayout.findViewById(R.id.my_recycler_view);
 
-        //region Set ListView Adapter
-        lessonsList.setAdapter(new AdapterGrades(
-                getActivity().getApplicationContext(),
-                R.layout.grade_layout,
-                lessons
-        ));
-        //endregion
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(container.getContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        new ReloadGrades().execute();
 
         return swipeRefreshLayout;
     }

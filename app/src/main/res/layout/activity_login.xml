@@ -47,7 +47,9 @@
                     android:id="@+id/icarus"
                     android:src="@drawable/icarus"
                     android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:cropToPadding="false" />
+
             </RelativeLayout>
 
         </RelativeLayout>
@@ -69,10 +71,9 @@
                 android:layout_alignStart="@+id/Password"
                 android:layout_alignRight="@+id/Password"
                 android:layout_alignEnd="@+id/Password"
-                android:textAlignment="center"
                 android:singleLine="true"
                 android:autoText="false"
-                android:textColor="#ffff444b" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <EditText
                 android:layout_width="wrap_content"
@@ -86,7 +87,7 @@
                 android:layout_centerHorizontal="true"
                 android:singleLine="true"
                 android:imeOptions="actionDone"
-                android:textColor="#ffff525d" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -96,7 +97,8 @@
                 android:layout_below="@+id/Password"
                 android:layout_centerHorizontal="true"
                 android:nestedScrollingEnabled="false"
-                android:onClick="Login_Clicked"/>
+                android:onClick="Login_Clicked"
+                style="@style/Widget.AppCompat.Button.Colored" />
 
             <TextView
                 android:layout_width="wrap_content"
