@@ -9,5 +9,8 @@
     <dimen name="grade_item_right_padding">15dp</dimen>
     <dimen name="grade_item_top_padding">15dp</dimen>
     <dimen name="grade_item_bottom_padding">15dp</dimen>
+    <dimen name="nav_header_vertical_spacing">12dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
 </resources>

@@ -1,8 +1,13 @@
 package gr.rambou.myicarus;
 
+/**
+ * Created by rambou on 31/1/2017.
+ */
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +19,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-public class Grades extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class CoursesPassedFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private static int REFRESH_TIME_IN_SECONDS = 6;
     ArrayList<Lesson> studentLessons;
@@ -25,12 +30,12 @@ public class Grades extends Fragment implements SwipeRefreshLayout.OnRefreshList
     private RecyclerView.LayoutManager mLayoutManager;
 
 
-    public Grades() {
+    public CoursesPassedFragment() {
         // Required empty public constructor
     }
 
-    public static Grades newInstance() {
-        Grades fragment = new Grades();
+    public static CoursesPassedFragment newInstance() {
+        CoursesPassedFragment fragment = new CoursesPassedFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -46,7 +51,7 @@ public class Grades extends Fragment implements SwipeRefreshLayout.OnRefreshList
             }
         }, REFRESH_TIME_IN_SECONDS * 1000);
 
-        new ReloadGrades().execute();
+        new CoursesPassedFragment.ReloadGrades().execute();
     }
 
     private void stopSwipeRefresh() {
@@ -58,6 +63,7 @@ public class Grades extends Fragment implements SwipeRefreshLayout.OnRefreshList
         super.onCreate(savedInstanceState);
     }
 
+    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -78,13 +84,13 @@ public class Grades extends Fragment implements SwipeRefreshLayout.OnRefreshList
         mLayoutManager = new LinearLayoutManager(container.getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        new ReloadGrades().execute();
+        new CoursesPassedFragment.ReloadGrades().execute();
 
         return swipeRefreshLayout;
     }
 
     public class ReloadGrades extends AsyncTask<Void, Void, Void> {
-        Object[] arraylist;
+        ArrayList<Lesson> arraylist;
 
         @Override
         protected void onPreExecute() {
@@ -97,7 +103,7 @@ public class Grades extends Fragment implements SwipeRefreshLayout.OnRefreshList
 
             try {
                 myicarus.LoadMarks(null);
-                arraylist = myicarus.getAll_Lessons_array();
+                arraylist = myicarus.getSucceed_Lessons();
                 //ListView lessonsList = (ListView) swipeRefreshLayout.findViewById(R.id.grades_listview);
                 Log.v("REFRESH", "success");
             } catch (Exception e) {
@@ -114,7 +120,7 @@ public class Grades extends Fragment implements SwipeRefreshLayout.OnRefreshList
             stopSwipeRefresh();
 
             // specify an adapter (see also next example)
-            mAdapter = new LessonAdapter(arraylist);
+            mAdapter = new LessonAdapter(arraylist.toArray());
             mRecyclerView.setAdapter(mAdapter);
         }
     }

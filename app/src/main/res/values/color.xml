@@ -7,6 +7,13 @@
     <color name="list_divider_grades">#ffd4d4d4</color>
     <color name="list_grade">#fff</color>
     <color name="grade_item">#fff</color>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="white">#FFF</color>
+
+    <!-- grades -->
     <color name="grade_title">#303030</color>
     <color name="grade_value">#808080</color>
     <color name="grade_semester">#808080</color>

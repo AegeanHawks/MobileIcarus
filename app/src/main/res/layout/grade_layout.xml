@@ -1,72 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
+    android:layout_height="240dp"
     android:layout_margin="8dp">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/navigation_layout_row_item"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/grade_item">
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_info" />
 
         <TextView
-            android:text="Ασφάλεια πληροφοριακών συστημάτων"
-            android:singleLine="false"
             android:id="@+id/Grade_Title"
             android:layout_width="270dp"
             android:layout_height="60dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/thumbnail"
+            android:layout_toStartOf="@+id/Lesson_Passed"
+            android:gravity="top"
             android:maxLines="2"
             android:minHeight="?android:attr/listPreferredItemHeightSmall"
+            android:paddingLeft="@dimen/grade_item_left_padding"
+            android:paddingTop="@dimen/grade_item_top_padding"
+            android:singleLine="false"
+            android:text="Ασφάλεια πληροφοριακών συστημάτων"
             android:textAppearance="?android:attr/textAppearanceListItemSmall"
             android:textColor="@color/grade_title"
-            android:gravity="top"
-            android:textStyle="bold"
-            android:paddingLeft="@dimen/grade_item_left_padding"
-            android:paddingTop="@dimen/grade_item_top_padding"/>
-
-        <TextView
-            android:text="8,5 "
-            android:id="@+id/Grade_Value"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:minHeight="?android:attr/listPreferredItemHeightSmall"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"
-            android:textSize="16dp"
-            android:textColor="@color/grade_value"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:gravity="top"
-            android:paddingTop="@dimen/grade_item_top_padding"
-            android:paddingRight="@dimen/grade_item_right_padding" />
-
-        <TextView
-            android:text="7ο Εξάμηνο"
-            android:id="@+id/Grade_Semester"
-            android:layout_width="200dp"
-            android:layout_height="45dp"
-            android:layout_below="@id/Grade_Value"
-            android:minHeight="?android:attr/listPreferredItemHeightSmall"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"
-            android:textSize="14dp"
-            android:textColor="@color/grade_semester"
-            android:gravity="bottom"
-            android:paddingBottom="@dimen/grade_item_bottom_padding"
-            android:paddingLeft="@dimen/grade_item_left_padding"/>
+            android:textStyle="bold" />
 
 
         <ImageView
-            android:src="@drawable/ic_info"
             android:id="@+id/Lesson_Passed"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:gravity="bottom"
+            android:layout_alignEnd="@+id/Grade_Value"
             android:layout_alignParentBottom="true"
             android:layout_alignRight="@+id/Grade_Value"
-            android:layout_alignEnd="@+id/Grade_Value"
+            android:layout_below="@+id/Grade_Title"
+            android:gravity="bottom"
             android:paddingBottom="@dimen/grade_item_bottom_padding"
-            android:paddingRight="@dimen/grade_item_right_padding" />
+            android:paddingRight="@dimen/grade_item_right_padding"
+            android:src="@drawable/ic_info" />
+
+        <TextView
+            android:id="@+id/Grade_Semester"
+            android:layout_width="200dp"
+            android:layout_height="45dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/Grade_Title"
+            android:layout_marginStart="13dp"
+            android:gravity="bottom"
+            android:minHeight="?android:attr/listPreferredItemHeightSmall"
+            android:paddingBottom="@dimen/grade_item_bottom_padding"
+            android:paddingLeft="@dimen/grade_item_left_padding"
+            android:text="7ο Εξάμηνο"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:textColor="@color/grade_semester"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/Grade_Value"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/thumbnail"
+            android:gravity="top"
+            android:minHeight="?android:attr/listPreferredItemHeightSmall"
+            android:paddingRight="@dimen/grade_item_right_padding"
+            android:paddingTop="@dimen/grade_item_top_padding"
+            android:text="8,5 "
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:textColor="@color/grade_value"
+            android:textSize="16dp" />
+
     </RelativeLayout>
 </android.support.v7.widget.CardView>

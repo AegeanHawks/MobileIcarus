@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 
 public class request extends Fragment {
@@ -22,10 +23,6 @@ public class request extends Fragment {
         return fragment;
     }
 
-    public request() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +35,16 @@ public class request extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_request, container, false);
+        View v = inflater.inflate(R.layout.fragment_request, container, false);
+        EditText surname = (EditText) v.findViewById(R.id.surname);
+        EditText firstname = (EditText) v.findViewById(R.id.firstname);
+        EditText studentid = (EditText) v.findViewById(R.id.student_id);
+
+        studentid.setText(mParam1.getID());
+        surname.setText(mParam1.getSurname());
+        firstname.setText(mParam1.getStudentName());
+
+        return v;
     }
 
     public void onButtonPressed(Uri uri) {
@@ -54,7 +60,7 @@ public class request extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        public void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(Uri uri);
     }
 
 }

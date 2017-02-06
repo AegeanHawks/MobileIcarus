@@ -41,4 +41,10 @@
     <string name="Stats">Στατιστικά</string>
     <!-- Nav Drawer Menu Items -->
 
+    <string name="courses_all">όλα</string>
+    <string name="courses_passed">περασμένα</string>
+    <string name="courses_semester">εξαμήνου</string>
+    <string name="semester">ο Εξάμηνο</string>
+
+    <string name="navigation_menu_user">άλλα</string>
 </resources>

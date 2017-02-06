@@ -1,6 +1,5 @@
 package gr.rambou.myicarus;
 
-import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -10,191 +9,197 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
-public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-
-    //region Variables
+    private FragmentManager mFragmentManager;
+    private TextView nameView;
+    private TextView emailView;
+    private FragmentTransaction mFragmentTransaction;
     private Icarus myicarus;
-    private Grades gradesFragment;
-    private request requestFragment;
-    private CourseRegister courseRegisterFragment;
-    private Statistics statisticsFragment;
-    private About aboutFragment;
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
-    private NavigationDrawerFragment mNavigationDrawerFragment;
-    /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-     */
-    private CharSequence mTitle;
-    //endregion
-
-    public Icarus getIcarus(){
-        return myicarus;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_navigation);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         myicarus = (Icarus) getIntent().getExtras().getSerializable("icarus");
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });*/
 
-        // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
-        InitializeFragments();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        View hView = navigationView.getHeaderView(0);
+        nameView = (TextView) hView.findViewById(R.id.nameView);
+        emailView = (TextView) hView.findViewById(R.id.emailView);
+        nameView.setText(myicarus.getStudentFullName());
+        emailView.setText(myicarus.getID());
+
+        /**
+         * Lets inflate the very first fragment
+         * Here , we are inflating the TabFragment as the first Fragment
+         */
+        mFragmentManager = getSupportFragmentManager();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
+
+
+        Bundle requestBundle = new Bundle();
+        requestBundle.putSerializable("myicarus", myicarus);
+        Fragment fragment = new TabFragment();
+        fragment.setArguments(requestBundle);
+        mFragmentTransaction.replace(R.id.content_navigation, fragment).commit();
+
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+
+        mFragmentManager = getSupportFragmentManager();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
+        Fragment fragment = null;
+
+
+        Bundle requestBundle = new Bundle();
+        requestBundle.putSerializable("myicarus", myicarus);
+
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_marks) {
+            fragment = new TabFragment();
+            fragment.setArguments(requestBundle);
+        } else if (id == R.id.nav_applications) {
+            fragment = new request();
+            fragment.setArguments(requestBundle);
+        } else if (id == R.id.nav_semester_statement) {
+            fragment = new CourseRegister();
+            fragment.setArguments(requestBundle);
+        } else if (id == R.id.nav_performance) {
+            fragment = new Statistics();
+            fragment.setArguments(requestBundle);
+        } else if (id == R.id.nav_about) {
+            fragment = new About();
+        } else if (id == R.id.nav_settings) {
+            fragment = new Settings();
+        } else if (id == R.id.nav_logout) {
+            SessionManager session = new SessionManager(getApplicationContext());
+            session.logoutUser();
+            this.finish();
+            return true;
+        }
+
+        // commit the transaction if any
+        if (fragment != null)
+            mFragmentTransaction.replace(R.id.content_navigation, fragment).commit();
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
-    }
-
-    /**
-     * Functions that changes the fragment
-     */
-    private void ChangeFragment(Fragment newFragment){
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack so the user can navigate back
-        transaction.replace(R.id.container, newFragment);
-        //transaction.addToBackStack(null);
-
-        // Commit the transaction
-        transaction.commit();
-    }
-
-    private void InitializeFragments()
-    {
-        //region Initialize grades Fragment
-        gradesFragment = new Grades();
-        Bundle gradesBundle = new Bundle();
-        ArrayList<Lesson> arraylist = myicarus.getAll_Lessons();
-        gradesBundle.putSerializable("arraylist", arraylist);
-        gradesBundle.putSerializable("myicarus", myicarus);
-        gradesFragment.setArguments(gradesBundle);
-        //endregion
-
-        //region Initialize request Fragment
-        requestFragment = new request();
-        Bundle requestBundle = new Bundle();
-        requestBundle.putSerializable("myicarus", myicarus);
-        requestFragment.setArguments(requestBundle);
-        //endregion
-
-        //region Initialize course register Fragment
-        courseRegisterFragment = new CourseRegister();
-        Bundle courseRegisterBundle = new Bundle();
-        courseRegisterBundle.putSerializable("myicarus", myicarus);
-        courseRegisterFragment.setArguments(requestBundle);
-        //endregion
-
-        //region Initialize statistics Fragment
-        statisticsFragment = new Statistics();
-        Bundle statisticsBundle = new Bundle();
-        statisticsBundle.putSerializable("myicarus", myicarus);
-        statisticsFragment.setArguments(requestBundle);
-        //endregion
-
-        //region Initialize request Fragment
-        aboutFragment = new About();
-        //endregion
-    }
-
-    public void onSectionAttached(int number) {
-        switch (number) {
-            case 1:
-                mTitle = getString(R.string.Grades);
-                ChangeFragment(gradesFragment);
-                break;
-            case 2:
-                mTitle = getString(R.string.Request);
-                ChangeFragment(requestFragment);
-                break;
-            case 3:
-                mTitle = getString(R.string.Course_Register);
-                ChangeFragment(courseRegisterFragment);
-                break;
-            case 4:
-                mTitle = getString(R.string.Stats);
-                ChangeFragment(statisticsFragment);
-                break;
-            case 5:
-                mTitle = getString(R.string.About);
-                ChangeFragment(aboutFragment);
-                break;
-            case 6:
-                mTitle = getString(R.string.Logout);
-                SessionManager session = new SessionManager(getApplicationContext());
-                session.logoutUser();
-                this.finish();
-                break;
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
     }
 
-    public void restoreActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.navigation, menu);
+        return true;
     }
 
-    public void RequestSend_Clicked(View view){
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+            // Replace whatever is in the fragment_container view with this fragment,
+            // and add the transaction to the back stack so the user can navigate back
+            transaction.replace(R.id.content_navigation, new Settings());
+            //transaction.addToBackStack(null);
+
+            // Commit the transaction
+            transaction.commit();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public Icarus getIcarus() {
+        return myicarus;
+    }
+
+    public void RequestSend_Clicked(View view) {
         Bundle args = new Bundle();
-        args.putString("fathername",((TextView) findViewById(R.id.fathername)).getText().toString());
+        args.putString("fathername", ((TextView) findViewById(R.id.fathername)).getText().toString());
         try {
             Integer semester = Integer.valueOf(((TextView) findViewById(R.id.semester)).getText().toString());
             args.putInt("Semester", semester.intValue());
-        }catch(Exception e){
-            Toast.makeText(getBaseContext(),getString(R.string.NotificationMSG),
+        } catch (Exception e) {
+            Toast.makeText(getBaseContext(), getString(R.string.NotificationMSG),
                     Toast.LENGTH_SHORT).show();
             return;
         }
 
-        args.putString("address",((TextView) findViewById(R.id.home_address)).getText().toString());
-        args.putString("phone",((TextView) findViewById(R.id.phone_number)).getText().toString());
-        args.putString("send_address",((TextView) findViewById(R.id.fax_or_address)).getText().toString());
+        args.putString("address", ((TextView) findViewById(R.id.home_address)).getText().toString());
+        args.putString("phone", ((TextView) findViewById(R.id.phone_number)).getText().toString());
+        args.putString("send_address", ((TextView) findViewById(R.id.fax_or_address)).getText().toString());
 
-        if(((RadioButton) findViewById(R.id.radioButton)).isChecked()){
-            args.putSerializable("SendType",Icarus.SendType.OFFICE);
-        }else if(((RadioButton) findViewById(R.id.radioButton1)).isChecked()){
-            args.putSerializable("SendType",Icarus.SendType.COURIER);
-        }else {
-            args.putSerializable("SendType",Icarus.SendType.FAX);
+        if (((RadioButton) findViewById(R.id.radioButton)).isChecked()) {
+            args.putSerializable("SendType", Icarus.SendType.OFFICE);
+        } else if (((RadioButton) findViewById(R.id.radioButton1)).isChecked()) {
+            args.putSerializable("SendType", Icarus.SendType.COURIER);
+        } else {
+            args.putSerializable("SendType", Icarus.SendType.FAX);
         }
 
         String[] papers = new String[11];
@@ -210,12 +215,12 @@ public class MainActivity extends ActionBarActivity
         papers[9] = ((TextView) findViewById(R.id.textView_9)).getText().toString();
         papers[10] = ((TextView) findViewById(R.id.another_paper)).getText().toString();
 
-        args.putStringArray("papers",papers);
+        args.putStringArray("papers", papers);
 
         new RequestSend().execute(args);
     }
 
-    private void SendNotification(String message){
+    private void SendNotification(String message) {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.icarus)
@@ -251,105 +256,7 @@ public class MainActivity extends ActionBarActivity
         Notification nf = mBuilder.build();
         nf.flags |= Notification.FLAG_AUTO_CANCEL;
 
-        mNotificationManager.notify(0,nf );
-    }
-
-    private class RequestSend extends AsyncTask<Bundle,Void , Void> {
-        Boolean success;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Bundle... params) {
-            Bundle b = params[0];
-            System.setProperty("jsse.enableSNIExtension", "false");
-            success = myicarus.SendRequest(b.getString("fathername"),b.getInt("Semester"),b.getString("address"),b.getString("phone"),b.getString("send_address"), (Icarus.SendType) b.getSerializable("SendType"), b.getStringArray("papers") );
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            if(success)
-                Toast.makeText(getBaseContext(),getString(R.string.RequestSuccess),
-                    Toast.LENGTH_SHORT).show();
-            else
-                Toast.makeText(getBaseContext(),getString(R.string.RequestFailed),
-                        Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            // Only show items in the action bar relevant to this screen
-            // if the drawer is not showing. Otherwise, let the drawer
-            // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.main, menu);
-            restoreActionBar();
-            return true;
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            ChangeFragment(new Settings());
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            return rootView;
-        }
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((MainActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
+        mNotificationManager.notify(0, nf);
     }
 
     public void onSwitchClicked(View view) {
@@ -363,19 +270,19 @@ public class MainActivity extends ActionBarActivity
 
         if (on) {
             //start service
-            if(!isMyServiceRunning(GradesChecker.class)) {
+            if (!isMyServiceRunning(GradesChecker.class)) {
                 // Start service using AlarmManager
 
                 Calendar cal = Calendar.getInstance();
                 cal.add(Calendar.SECOND, 10);
-                alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 12*60*60*1000, sender);
+                alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 12 * 60 * 60 * 1000, sender);
 
                 startService(new Intent(getBaseContext(), GradesChecker.class));
                 session.setServiceState(true);
             }
         } else {
             //stop service
-            if(isMyServiceRunning(GradesChecker.class)) {
+            if (isMyServiceRunning(GradesChecker.class)) {
                 alarm.cancel(sender);
                 stopService(new Intent(getBaseContext(), GradesChecker.class));
                 session.setServiceState(false);
@@ -391,6 +298,35 @@ public class MainActivity extends ActionBarActivity
             }
         }
         return false;
+    }
+
+    private class RequestSend extends AsyncTask<Bundle, Void, Void> {
+        Boolean success;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Bundle... params) {
+            Bundle b = params[0];
+            System.setProperty("jsse.enableSNIExtension", "false");
+            success = myicarus.SendRequest(b.getString("fathername"), b.getInt("Semester"), b.getString("address"), b.getString("phone"), b.getString("send_address"), (Icarus.SendType) b.getSerializable("SendType"), b.getStringArray("papers"));
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            if (success)
+                Toast.makeText(getBaseContext(), getString(R.string.RequestSuccess),
+                        Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(getBaseContext(), getString(R.string.RequestFailed),
+                        Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

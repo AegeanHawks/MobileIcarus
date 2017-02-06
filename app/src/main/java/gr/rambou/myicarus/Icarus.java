@@ -45,23 +45,10 @@ import javax.net.ssl.X509TrustManager;
 public class Icarus implements Serializable {
 
     private final String Username, Password;
-    private String StudentFullName, ID, StudentName, Surname;
     public Map<String, String> Cookies;
+    private String StudentFullName, ID, StudentName, Surname;
     //private Document Page;
     private ArrayList<Lesson> Succeed_Lessons, All_Lessons, Exams_Lessons;
-
-
-    public enum SendType {
-
-        OFFICE, COURIER, FAX
-    }
-
-    public enum PaperType {
-
-        bebewsh_spoudwn, analutikh_ba8mologia, analutikh_ba8mologia_ptuxio_me_ba8mo, analutikh_ba8mologia_ptuxio_xwris_ba8mo,
-        stratologia, diagrafh, antigrafo_ptuxiou, plhrw_proupo8eseis_apokthseis_ptuxiou, praktikh_askhsh, stegastiko_epidoma,
-        allo
-    }
 
     public Icarus(String username, String password) {
         this.Username = username;
@@ -316,7 +303,7 @@ public class Icarus implements Serializable {
     }
 
     public String getSurname() {
-        return StudentFullName.split(" ")[0];
+        return StudentFullName.split(" ")[1];
     }
 
     private void enableSSLSocket() throws KeyManagementException, NoSuchAlgorithmException {
@@ -339,6 +326,18 @@ public class Icarus implements Serializable {
             }
         }}, new SecureRandom());
         HttpsURLConnection.setDefaultSSLSocketFactory(context.getSocketFactory());
+    }
+
+    public enum SendType {
+
+        OFFICE, COURIER, FAX
+    }
+
+    public enum PaperType {
+
+        bebewsh_spoudwn, analutikh_ba8mologia, analutikh_ba8mologia_ptuxio_me_ba8mo, analutikh_ba8mologia_ptuxio_xwris_ba8mo,
+        stratologia, diagrafh, antigrafo_ptuxiou, plhrw_proupo8eseis_apokthseis_ptuxiou, praktikh_askhsh, stegastiko_epidoma,
+        allo
     }
 
 }

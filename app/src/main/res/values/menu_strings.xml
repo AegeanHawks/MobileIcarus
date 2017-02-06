@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="navigation_applications">Application</string>
+    <string name="navigation_about">About</string>
+    <string name="navigation_logout">Logout</string>
+    <string name="navigation_marks">Marks</string>
+    <string name="navigation_performance">Performance</string>
+    <string name="navigation_semester_statement">Semester Cources</string>
+</resources>

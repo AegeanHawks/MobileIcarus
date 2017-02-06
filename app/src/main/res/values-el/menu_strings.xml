@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="navigation_applications">Αιτήσεις</string>
+    <string name="navigation_about">Σχετικά</string>
+    <string name="navigation_logout">Αποσύνδεση</string>
+    <string name="navigation_marks">Βαθμολογίες</string>
+    <string name="navigation_performance">Επίδοση</string>
+    <string name="navigation_semester_statement">Δήλωση μαθημάτων</string>
+</resources>
