@@ -65,6 +65,7 @@ public class Icarus implements Serializable {
             //Εκτελέμε ερώτημα GET μέσω της JSoup για να συνδεθούμε
             Connection.Response res = Jsoup
                     .connect("https://icarus-icsd.aegean.gr/authentication.php")
+                    .timeout(10 * 1000)
                     .data("username", Username, "pwd", Password)
                     .method(Connection.Method.POST)
                     .execute();
